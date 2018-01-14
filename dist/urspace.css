@@ -106,6 +106,7 @@ body {
   transition: 0.3s;
   color: #dddddd;
 }
+
 /*
 @media screen and (max-width: 600px) {
   #sidenav, #sidebar {
@@ -113,6 +114,7 @@ body {
   }
 }
 */
+
 /* ================ content ===============*/
 #content {
   overflow:hidden; /*  max-width: 40em; */
