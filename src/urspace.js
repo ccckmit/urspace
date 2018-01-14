@@ -14,10 +14,14 @@ marked.setOptions({
 
 var sidenav = document.getElementById('sidenav')
 
-function menuToggle() {
+export function menuToggle() {
   sidenav.style.width = (sidenav.style.width === '0px') ? '200px' : '0px'
   sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
 }
+
+var menuToggleNode = document.getElementById('menuToggle')
+
+menuToggleNode.addEventListener("click", menuToggle)
 
 var ya = {}
 

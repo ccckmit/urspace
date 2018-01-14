@@ -1,4 +1,6 @@
 import urspace from './urspace'
+
+/*
 function component() {
   var element = document.createElement('div');
 
@@ -9,3 +11,4 @@ function component() {
 }
 
 document.body.appendChild(component());
+*/

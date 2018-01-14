@@ -107,6 +107,12 @@ body {
   color: #dddddd;
 }
 
+@media screen and (max-width: 600px) {
+  #sidenav, #sidebar {
+      width:0px;
+  }
+}
+
 /* ================ content ===============*/
 #content {
   overflow:hidden; /*  max-width: 40em; */

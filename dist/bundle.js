@@ -71,6 +71,8 @@
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__urspace__ = __webpack_require__(1);
 
+
+/*
 function component() {
   var element = document.createElement('div');
 
@@ -81,12 +83,14 @@ function component() {
 }
 
 document.body.appendChild(component());
+*/
 
 /***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export menuToggle */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__infinite_scroll__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_marked___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_marked__);
@@ -110,6 +114,10 @@ function menuToggle() {
   sidenav.style.width = (sidenav.style.width === '0px') ? '200px' : '0px'
   sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
 }
+
+var menuToggleNode = document.getElementById('menuToggle')
+
+menuToggleNode.addEventListener("click", menuToggle)
 
 var ya = {}
 
@@ -154,8 +162,13 @@ ya.messageList = function (messages) {
   return list.join('\n')
 }
 
+var messageSubmitButton = document.getElementById('messageSubmit')
 var messageClearButton = document.getElementById('messageClear')
 var messageNewContent  = document.getElementById('messageNewContent')
+
+messageSubmitButton.addEventListener('click', function() {
+  db.save(messageNewContent.innerText)
+})
 
 messageClearButton.addEventListener('click', function() {
   messageNewContent.innerHTML = ''
