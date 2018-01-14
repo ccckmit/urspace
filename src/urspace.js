@@ -82,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
 //  document.querySelector('#menuList').innerHTML = ya.menuList(ya.menu)
   document.querySelector('#message').innerHTML = ya.messageList(ya.messages)
   infiniteScroll(ya.messageScrollOptions)
+  if (window.innerWidth <= 700) menuToggle()
   // ============== Initialize ====================
 //  purecssLoad(window, window.document)
 //  hljs.initHighlightingOnLoad()
