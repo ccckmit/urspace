@@ -1,4 +1,5 @@
 var sidenav = document.getElementById('sidenav')
+
 function menuToggle() {
   sidenav.style.width = (sidenav.style.width === '0px') ? '200px' : '0px'
   sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
@@ -59,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
 // ============== messages ======================
 
 ya.messages = [
-  { id:0, by:'曹齊平', content: '工作室半年前製作的"電子製冷與溫差發電"教學展示架，雖然可以成功做實驗，但是一直覺得應該有更好的方法。\n是否可簡化製作程序? 如何讓機構簡單又牢固?\n今晚要好好想個更好的製作方法。'},
+  { id:0, by:'曹齊平', content: '工作室半年前製作的"電子製冷與溫差發電"教學展示架，雖然可以成功做實驗，但是一直覺得應該有更好的方法。\n是否可簡化製作程序? 如何讓機構簡單又牢固?\n今晚要好好想個更好的製作方法。工作室半年前製作的"電子製冷與溫差發電"教學展示架，雖然可以成功做實驗，但是一直覺得應該有更好的方法。\n是否可簡化製作程序? 如何讓機構簡單又牢固?\n今晚要好好想個更好的製作方法。工作室半年前製作的"電子製冷與溫差發電"教學展示架，雖然可以成功做實驗，但是一直覺得應該有更好的方法。\n是否可簡化製作程序? 如何讓機構簡單又牢固?\n今晚要好好想個更好的製作方法。工作室半年前製作的"電子製冷與溫差發電"教學展示架，雖然可以成功做實驗，但是一直覺得應該有更好的方法。\n是否可簡化製作程序? 如何讓機構簡單又牢固?\n今晚要好好想個更好的製作方法。工作室半年前製作的"電子製冷與溫差發電"教學展示架，雖然可以成功做實驗，但是一直覺得應該有更好的方法。\n是否可簡化製作程序? 如何讓機構簡單又牢固?\n今晚要好好想個更好的製作方法。'},
   { id:1, by:'中國時報', content: '台灣高教面臨改革關頭，曾志朗認為，台大新校長必須擁有整合人才與募款的能力，不要再依賴教育部的有限資源，才能走出困境邁向國際。真的！'},
   { id:2, by:'Google', content: 'All you need to do is choose an RSS reader that best fits your style and use it to subscribe to the RSS feeds of the sites you love reading. '},
   { id:3, by:'ccc', content: '想把之前的 《機率統計、微積分、工程數學、 線性代數、離散數學、數值分析》 全部整合到《科學計算》這門課裏面， 一門課 搞定所有可以計算的數學。'},

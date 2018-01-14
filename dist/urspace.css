@@ -109,7 +109,7 @@ body {
 
 /* ================ content ===============*/
 #content {
-  overflow:hidden;
+  overflow:hidden; /*  max-width: 40em; */
   width: auto;
   background-color: #dddddd;
   padding: 20px;
@@ -160,16 +160,25 @@ a {
   margin:10px; 
   padding:10px; 
   min-height:100px; 
-  border: 1px dashed #999999;
+  border: 1px solid #bbbbbb;
   border-radius: 5px;
   background-color: white;
 }
 
 .message .content {
-  border-top:1px dotted #999999;
-  border-bottom:1px dotted #999999;
+  border-top:1px solid #dddddd;
+  border-bottom:1px solid #dddddd;
+  display: inline-block;
+  width: 100%;
 }
 
 .message div {
   padding: 10px;
 }
+
+.message h1 { font-size:150%; font-weight:bold; }
+.message h2 { font-size:125%; font-weight:bold; }
+.message h3 { font-size:100%; font-weight:bold; }
+.message h4 { font-size:100%; font-weight:bold; }
+.message h5 { font-size:100%; font-weight:bold; }
+.message h6 { font-size:100%; font-weight:bold; }
