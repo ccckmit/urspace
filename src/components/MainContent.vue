@@ -1,28 +1,25 @@
 <template>
-  <div v-if="to==='login' || to==='logout'">
-    <login-form :firebase="firebase"/>
+  <div v-if="to==='login'">
+    <login-form :shared="shared"/>
   </div>
   <div v-else>
-    <message-new/>
-    <message-list :db="db"/>
+    <sms :shared="shared"/>
   </div>
 </template>
 
 <script>
-import MessageNew from './MessageNew.vue'
-import MessageList from './MessageList.vue'
+import Sms from './Sms.vue'
 import LoginForm from './LoginForm.vue'
 
 export default {
   name: 'mainContent',
-  props: ['firebase', 'db', 'to'],
+  props: ['shared', 'to'],
   data () {
     return {
     }
   },
   components: {
-    MessageNew,
-    MessageList,
+    Sms,
     LoginForm
   },
   methods: {

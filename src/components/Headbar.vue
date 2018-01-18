@@ -1,7 +1,7 @@
 <template>
   <div id="headbar">
     <a id="menuToggle"  @click="menuToggle">&#9776;</a> &nbsp;
-    <router-link to="/">Home</router-link>
+    <router-link to="/">UrSpace</router-link>
     <div class="dropdown">
       <button class="dropbtn">繁體中文</button>
       <div class="dropdown-content">
@@ -12,17 +12,13 @@
     </div>
     <div class="dropdown">
       <button class="dropbtn">
-        <router-link to="/user">user</router-link>
+        <router-link to="/user">{{shared.user ? shared.user.displayName : '登入'}}</router-link>
       </button>
       <div class="dropdown-content">
         <router-link to="/login">登入</router-link>
-        <!--
-        <a href="#login">登入</a>
-        <a @click="googleLogin">Google 登入</a>
-        -->
-        <router-link to="/logout">登出</router-link>
+        <router-link to="/" v-on:click.native="logout">登出</router-link>
         <router-link to="/signup">註冊</router-link>
-        <router-link to="/setting">登入</router-link>
+        <router-link to="/setting">設定</router-link>
       </div>
     </div>
     <div class="dropdown">
@@ -34,13 +30,25 @@
         <router-link to="/sms/random">隨機</router-link>
       </div>
     </div>
+    <div class="dropdown">
+      <button class="dropbtn">人員</button>
+      <div class="dropdown-content">
+        <router-link to="/sms/people">人員</router-link>
+        <router-link to="/sms/object">物品</router-link>
+        <router-link to="/sms/text">文章</router-link>
+        <router-link to="/sms/image">圖像</router-link>
+        <router-link to="/sms/video">影片</router-link>
+        <router-link to="/sms/book">書籍</router-link>
+        <router-link to="/sms/">全部</router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'headbar',
-  props: [ 'firebase' ],
+  props: [ 'shared' ],
   data () {
     return {
     }
@@ -54,6 +62,10 @@ export default {
       var sidebar = document.getElementById('sidebar')
       sidenav.style.width = (sidenav.style.width === '0px') ? '200px' : '0px'
       sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
+    },
+    logout: function (event) {
+      this.shared.clearUser()
+      // this.$router.push({path: '/login'})
     }
   }
 }

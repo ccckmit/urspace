@@ -1,12 +1,12 @@
 <template>
   <div>
-    <headbar :firebase="firebase"/>
+    <headbar :shared="shared"/>
     <div>
       <sidenav/>
       <div>
         <div id="content">
-          <main-content :firebase="firebase" :db="db" :to="to"/>
-          <div id="footer">footer</div>
+          <main-content :shared="shared" :to="to"/>
+          <div id="footer"></div>
         </div>
       </div>
     </div>
@@ -28,16 +28,35 @@ var firebaseApp = firebase.initializeApp({
   messagingSenderId: '1023578722292'
 })
 
-var db = firebaseApp.database()
+var debug = true
+var userJson = sessionStorage.getItem('urspace_user')
+
+var shared = {
+  user: userJson ? JSON.parse(userJson) : null,
+  firebase: firebase,
+  firebaseApp: firebaseApp,
+  db: firebaseApp.database(),
+  setUser (user) {
+    if (debug) console.log('setUser:', user)
+    this.user = user
+    sessionStorage.setItem('urspace_user', JSON.stringify(user))
+  },
+  clearUser () {
+    if (debug) console.log('clearUser:', this.user)
+    this.user = null
+    sessionStorage.removeItem('urspace_user')
+  },
+  isLogin () {
+    return (this.user != null)
+  }
+}
 
 export default {
   name: 'mainPage',
   props: ['to'],
   data () {
     return {
-      firebase: firebase,
-      firebaseApp: firebaseApp,
-      db: db
+      shared: shared
     }
   },
   components: {
@@ -46,8 +65,6 @@ export default {
     MainContent
   },
   created: function () {
-    // `this` points to the vm instance
-    console.log('op=', this.op)
   },
   methods: {
   }

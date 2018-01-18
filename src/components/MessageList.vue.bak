@@ -29,7 +29,7 @@ marked.setOptions({
 /* eslint-disable */
 export default {
   name: 'MessageList',
-  props: ['db'],
+  props: ['shared'],
   data () {
     return {
       messages: [],
@@ -48,7 +48,7 @@ export default {
       setTimeout(() => {
         let self = this
         let beginId = (this.messages.length === 0) ? 0 : this.messages[this.messages.length-1].id + 1
-        var ref = this.db.ref('/messages/').orderByChild('id').startAt(beginId).limitToFirst(step)
+        var ref = this.shared.db.ref('/messages/').orderByChild('id').startAt(beginId).limitToFirst(step)
         ref.once('value').then(function (snapshot) {
           if (snapshot.numChildren() < step) {
             self.isEnd = true

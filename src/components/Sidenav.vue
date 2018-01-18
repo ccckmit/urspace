@@ -19,7 +19,7 @@ export default {
   },
   created: function () {
     // `this` points to the vm instance
-    console.log('MainPage:this.$route.params=', this.$route.params)
+    // console.log('MainPage:this.$route.params=', this.$route.params)
   },
   methods: {
 

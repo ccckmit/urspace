@@ -12,7 +12,6 @@ export default new Router({
   routes: [
     { path: '/', component: LandingPage },
     { path: '/login', component: MainPage, props: { to: 'login' } },
-    { path: '/logout', component: MainPage, props: { to: 'logout' } },
     { path: '/main', component: MainPage, props: { to: 'sms' } },
     { path: '/sms', component: MainPage, props: { to: 'sms' } },
     { path: '/sms/:domain', component: MainPage, props: { to: 'sms' } },
