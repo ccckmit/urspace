@@ -4,23 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import infiniteScroll from 'vue-infinite-scroll'
-import marked from 'marked'
+import VueFire from 'vuefire'
 
-require('./assets/sms.css')
+require('./assets/main.css')
 
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false
-})
-
-Vue.config.productionTip = false
+Vue.use(VueFire) // explicit installation required in module environments
 Vue.use(infiniteScroll)
+Vue.config.productionTip = false
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

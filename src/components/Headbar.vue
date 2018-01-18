@@ -1,6 +1,6 @@
 <template>
   <div id="headbar">
-    <a id="menuToggle"  v-on:click="menuToggle">&#9776;</a> &nbsp;
+    <a id="menuToggle"  @click="menuToggle">&#9776;</a> &nbsp;
     <router-link to="/">Home</router-link>
     <div class="dropdown">
       <button class="dropbtn">繁體中文</button>
@@ -11,21 +11,27 @@
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">User</button>
+      <button class="dropbtn">
+        <router-link to="/user">user</router-link>
+      </button>
       <div class="dropdown-content">
+        <router-link to="/login">登入</router-link>
+        <!--
         <a href="#login">登入</a>
-        <a href="#logout">登出</a>
-        <a href="#signin">註冊</a>
-        <a href="#setting">設定</a>
+        <a @click="googleLogin">Google 登入</a>
+        -->
+        <router-link to="/logout">登出</router-link>
+        <router-link to="/signup">註冊</router-link>
+        <router-link to="/setting">登入</router-link>
       </div>
     </div>
     <div class="dropdown">
       <button class="dropbtn">最新</button>
       <div class="dropdown-content">
-        <a href="#new">最新</a>
-        <a href="#tracking">追蹤</a>
-        <a href="#near">鄰近</a>
-        <a href="#radnom">隨機</a>
+        <router-link to="/sms/new">最新</router-link>
+        <router-link to="/sms/near">鄰近</router-link>
+        <router-link to="/sms/tracking">追蹤</router-link>
+        <router-link to="/sms/random">隨機</router-link>
       </div>
     </div>
   </div>
@@ -34,6 +40,7 @@
 <script>
 export default {
   name: 'headbar',
+  props: [ 'firebase' ],
   data () {
     return {
     }
@@ -51,6 +58,5 @@ export default {
   }
 }
 </script>
-
 <style>
 </style>

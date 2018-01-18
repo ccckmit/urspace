@@ -3,7 +3,7 @@
     <br/><br/>
     <img src="../assets/logo.png">
     <h1>UrSpace</h1>
-    <p><router-link to="sms">UrSpace</router-link> is a system like Facebook.</p>
+    <h3><router-link to="main">UrSpace</router-link> is a system like Facebook.</h3>
   </div>
 </template>
 

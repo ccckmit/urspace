@@ -14,9 +14,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "firebase": "^4.8.2",
+    "marked": "^0.3.12",
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuefire": "^1.4.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
