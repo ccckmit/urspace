@@ -7,7 +7,7 @@
       <p>如果您已經登入了 Google 帳號，請按以下按鈕登入 UrSpace！</p>
       <p>如果還沒有，請 <a href="https://accounts.google.com/">登入 Google 帳號</a> 後，再按下列按鈕！</p>
       <br/>
-      <button @click="googleLogin" class="center big big-padding" >Google 登入</button>
+      <button @click="googleLogin" class="center big big-padding danger" >Google 登入</button>
       <br/><br/>
       <p>本網站目前僅支援 Google 帳號登入！</p>
     </div>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import service from '../lib/service'
+
 export default {
   name: 'loginForm',
   props: ['shared'],
@@ -25,15 +27,13 @@ export default {
   created: function () {
   },
   methods: {
-    googleLogin: function (event) {
-      let self = this
-      var googleProvider = new this.shared.firebase.auth.GoogleAuthProvider()
-      this.shared.firebase.auth().signInWithPopup(googleProvider).then(function (result) {
-        let user = result.user
+    googleLogin: function () {
+      const self = this
+      service.googleLogin().then(function (user) {
         self.shared.setUser({ displayName: user.displayName, email: user.email, uid: user.uid })
         self.$router.push({path: '/sms'})
       }).catch(function (error) {
-        alert(' 登入失敗！' + error)
+        alert('登入失敗！' + error)
       })
     }
   }
@@ -41,5 +41,4 @@ export default {
 </script>
 
 <style>
-
 </style>

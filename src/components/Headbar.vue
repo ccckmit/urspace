@@ -16,7 +16,7 @@
       </button>
       <div class="dropdown-content">
         <router-link to="/login">登入</router-link>
-        <router-link to="/" v-on:click.native="logout">登出</router-link>
+        <router-link to="/login" v-on:click.native="logout">登出</router-link>
         <router-link to="/signup">註冊</router-link>
         <router-link to="/setting">設定</router-link>
       </div>

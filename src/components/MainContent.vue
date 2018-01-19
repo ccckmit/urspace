@@ -1,5 +1,5 @@
 <template>
-  <div v-if="to==='login'">
+  <div v-if="shared.to==='login'">
     <login-form :shared="shared"/>
   </div>
   <div v-else>
@@ -13,7 +13,7 @@ import LoginForm from './LoginForm.vue'
 
 export default {
   name: 'mainContent',
-  props: ['shared', 'to'],
+  props: ['shared'],
   data () {
     return {
     }

@@ -25,20 +25,11 @@
 </template>
 
 <script>
-import marked from 'marked'
+import markdown from '../lib/markdown'
+import service from '../lib/service'
 
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false
-})
+var db = service.db
 
-/* eslint-disable */
 export default {
   name: 'Sms',
   props: ['shared'],
@@ -54,53 +45,46 @@ export default {
     postMessage () {
       var self = this
       var user = self.shared.user
-      var db = self.shared.db
-      var ref = db.ref('/messages/');
-      var mid = ref.push().key
       var record = {
         uid: user.uid,
         by: user.displayName,
-        content:self.messageContent,
-        time: self.shared.firebase.database.ServerValue.TIMESTAMP,
+        content: self.messageContent,
+        time: db.TIMESTAMP
       }
-      let updates = {}
-      updates['/messages/' + mid] = record
-      updates['/user-messages/' + user.uid + '/' + mid] = record
-      self.shared.db.ref().update(updates).then(function () {
-        // var newRec = { uid: record.uid, by: record.by, content: record.content, time: Date.now() }
+      db.add('messages', record).then(function () {
         record.time = Date.now()
         self.messages.unshift(record)
         self.messageContent = ''
       }).catch(function (err) {
-        if (err) alert('新增訊息失敗：' + err);
+        if (err) alert('新增訊息失敗：' + err)
       })
     },
-    md2html: function (md) {
-      return marked(md)
+    md2html (md) {
+      return markdown.toHtml(md)
     },
-    loadMore: function () {
+    loadMore () {
+      const self = this
       const step = 10
+
       if (this.busyLoadMore || this.isEnd) return
       this.busyLoadMore = true
+      if (self.isEnd) return
+
+      let sort = this.shared.sort || ''
+      let orderBy = this.shared.orderBy || 'time'
       setTimeout(() => {
-        let self = this
-        // let beginId = (this.messages.length === 0) ? 0 : this.messages[this.messages.length-1].id + 1
-        let start = (this.messages.length === 0) ? 0 : this.messages[this.messages.length-1].time + 1
-        var ref = this.shared.db.ref('/messages/').orderByChild('time').startAt(start).limitToFirst(step)
-        ref.once('value').then(function (snapshot) {
-          if (snapshot.numChildren() < step) {
-            self.isEnd = true
-          }
-          snapshot.forEach(function (childSnapshot) {
-            let msg = childSnapshot.val()
-            self.messages.push(msg)
-          })
-          // console.log('isEnd', self.isEnd)
+        let start = (this.messages.length === 0 || sort === 'desc') ? null : this.messages[this.messages.length - 1].time + 1
+        let end = (this.messages.length === 0 || sort !== 'desc') ? null : this.messages[this.messages.length - 1].time - 1
+        let q = { table: 'messages', orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
+        console.log('q=', q)
+        db.query(q).then(function (list) {
+          self.messages.push(...list)
+          self.isEnd = (list.length < step)
         })
         this.busyLoadMore = false
       }, 500)
     },
-    timeToIso(timestamp) {
+    timeToIso (timestamp) {
       return new Date(timestamp).toISOString()
     }
   }
