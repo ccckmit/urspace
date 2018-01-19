@@ -32,7 +32,7 @@ var db = service.db
 
 export default {
   name: 'Sms',
-  props: ['shared'],
+  props: ['shared', 'domain'],
   data () {
     return {
       messageContent: '',
@@ -95,11 +95,13 @@ export default {
 .messageContent {
   border-top:1px solid #dddddd;
   border-bottom:1px solid #dddddd;
-  display: inline-block;
+  /* display: inline-block; */
   width: 100%;
 }
 textarea {
-  width: 95%;
+  /* width: ;*/
+  width: 100%;
+  display: inline-block;
   height: 100px;
   padding: 10px;
 }

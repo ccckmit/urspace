@@ -1,28 +1,38 @@
 <template>
   <div id="sidenav">
     <div id="sidebar">
-      <router-link to="/sms/people">人員</router-link>
-      <router-link to="/sms/object">物品</router-link>
-      <router-link to="/sms/article">文章</router-link>
-      <router-link to="/sms/image">圖像</router-link>
-      <router-link to="/sms/video">影音</router-link>
+      <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="sub" class="captalize">{{mt(sub)}}</router-link>
     </div>
   </div>
 </template>
-
 <script>
+import mixin from '../lib/mixin'
+
 export default {
   name: 'sidenav',
+  props: [ 'shared', 'domain' ],
+  mixins: [mixin],
   data () {
     return {
+      subDomain: {
+        all: ['people', 'object', 'article', 'image', 'video', 'music', 'book', 'place'],
+        people: ['family', 'friends', 'followBy'],
+        object: ['sale', 'buy'],
+        article: ['news', 'rss'],
+        image: ['scene', 'portrait', 'family'],
+        video: ['movie', 'tv', 'youtube', 'sport'],
+        music: ['MTV', 'voice'],
+        book: ['science', 'math', 'novel', 'classic'],
+        place: ['near', 'asia', 'europe', 'america', 'africa']
+      }
     }
   },
   created: function () {
-    // `this` points to the vm instance
-    // console.log('MainPage:this.$route.params=', this.$route.params)
   },
   methods: {
-
+    domainLink (domain) {
+      return '/sms/' + domain
+    }
   }
 }
 </script>

@@ -1,8 +1,9 @@
 <template>
   <div id="headbar">
     <a id="menuToggle"  @click="menuToggle">&#9776;</a> &nbsp;
-    <router-link to="/">UrSpace</router-link>
-    <div class="dropdown">
+    <router-link to="/sms/all">{{mt('all')}}</router-link> /
+    <router-link v-if="(domain||'all') != 'all'" :to="domainLink" class="captalize">{{mt(domain)}}</router-link>
+    <div class="dropdown" style="width:8em">
       <button class="dropbtn">繁體中文</button>
       <div class="dropdown-content">
         <a href="#en">English</a>
@@ -12,43 +13,44 @@
     </div>
     <div class="dropdown">
       <button class="dropbtn">
-        <router-link to="/user">{{shared.user ? shared.user.displayName : '登入'}}</router-link>
+        <router-link to="/user">{{shared.user ? shared.user.displayName : 'Login'}}</router-link>
       </button>
       <div class="dropdown-content">
-        <router-link to="/login">登入</router-link>
-        <router-link to="/login" v-on:click.native="logout">登出</router-link>
-        <router-link to="/signup">註冊</router-link>
-        <router-link to="/setting">設定</router-link>
+        <router-link to="/login">{{mt('login')}}</router-link>
+        <router-link to="/login" v-on:click.native="logout">{{mt('logout')}}</router-link>
+        <router-link to="/signup">{{mt('signup')}}</router-link>
+        <router-link to="/setting">{{mt('setting')}}</router-link>
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">最新</button>
+      <button class="dropbtn">{{mt('new')}}</button>
       <div class="dropdown-content">
-        <router-link to="/sms/new">最新</router-link>
-        <router-link to="/sms/near">鄰近</router-link>
-        <router-link to="/sms/tracking">追蹤</router-link>
-        <router-link to="/sms/random">隨機</router-link>
+        <router-link :to="toLink('new')" class="captalize">{{mt('new')}}</router-link>
+        <router-link :to="toLink('hot')" class="captalize">{{mt('hot')}}</router-link>
+        <router-link :to="toLink('near')" class="captalize">{{mt('near')}}</router-link>
+        <router-link :to="toLink('my')" class="captalize">{{mt('my')}}</router-link>
+        <router-link :to="toLink('follow')" class="captalize">{{mt('follow')}}</router-link>
+        <router-link :to="toLink('read')" class="captalize">{{mt('read')}}</router-link>
+        <router-link :to="toLink('random')" class="captalize">{{mt('random')}}</router-link>
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">人員</button>
+      <button class="dropbtn">{{mt('UrSpace')}}</button>
       <div class="dropdown-content">
-        <router-link to="/sms/people">人員</router-link>
-        <router-link to="/sms/object">物品</router-link>
-        <router-link to="/sms/text">文章</router-link>
-        <router-link to="/sms/image">圖像</router-link>
-        <router-link to="/sms/video">影片</router-link>
-        <router-link to="/sms/book">書籍</router-link>
-        <router-link to="/sms/">全部</router-link>
+        <router-link to="/" class="captalize">{{mt('home')}}</router-link>
+        <router-link to="/help" class="captalize">{{mt('help')}}</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import mixin from '../lib/mixin'
+
 export default {
   name: 'headbar',
-  props: [ 'shared' ],
+  props: [ 'shared', 'domain' ],
+  mixins: [mixin],
   data () {
     return {
     }
@@ -56,7 +58,15 @@ export default {
   mounted: function () {
     if (window.innerWidth <= 700) this.menuToggle()
   },
+  computed: {
+    domainLink: function () {
+      return `/sms/${this.domain || 'all'}`
+    }
+  },
   methods: {
+    toLink: function (op) {
+      return `/sms/${this.domain}/${op}`
+    },
     menuToggle: function (event) {
       var sidenav = document.getElementById('sidenav')
       var sidebar = document.getElementById('sidebar')

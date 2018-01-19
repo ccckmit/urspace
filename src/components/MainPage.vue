@@ -1,11 +1,11 @@
 <template>
   <div>
-    <headbar :shared="shared"/>
+    <headbar :shared="shared" :domain="domain"/>
     <div>
-      <sidenav/>
+      <sidenav :shared="shared" :domain="domain"/>
       <div>
         <div id="content">
-          <main-content :shared="shared" :to="to"/>
+          <main-content :shared="shared" :to="to" :domain="domain"/>
           <div id="footer"></div>
         </div>
       </div>
@@ -32,12 +32,15 @@ export default {
     Sidenav,
     MainContent
   },
-  created: function () {
-    console.log('to=', this.to, 'domain=', this.domain, 'orderBy=', this.orderBy, 'sort=', this.sort)
-    shared.to = this.to
-    shared.domain = this.domain
-    shared.orderBy = this.orderBy
-    shared.sort = this.sort
+  watch: {
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+      console.log('to=', this.to, 'domain=', this.domain, 'orderBy=', this.orderBy, 'sort=', this.sort)
+      shared.to = this.to
+      shared.domain = this.domain
+      shared.orderBy = this.orderBy
+      shared.sort = this.sort
+    }
   },
   methods: {
   }
