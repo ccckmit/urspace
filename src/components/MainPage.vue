@@ -2,10 +2,11 @@
   <div>
     <headbar :shared="shared" :domain="domain"/>
     <div>
-      <sidenav :shared="shared" :domain="domain"/>
+      <leftbar :shared="shared" :domain="domain"/>
+      <rightbar :shared="shared" :domain="domain"/>
       <div>
         <div id="content">
-          <main-content :shared="shared" :to="to" :domain="domain"/>
+          <main-content :shared="shared" :page="page" :domain="domain" :op="op" :to="to"/>
           <div id="footer"></div>
         </div>
       </div>
@@ -15,13 +16,14 @@
 
 <script>
 import Headbar from './Headbar.vue'
-import Sidenav from './Sidenav.vue'
+import Leftbar from './Leftbar.vue'
+import Rightbar from './Rightbar.vue'
 import MainContent from './MainContent.vue'
 import shared from '../lib/shared'
 
 export default {
   name: 'mainPage',
-  props: ['to', 'domain', 'orderBy', 'sort'],
+  props: ['page', 'domain', 'op', 'to'],
   data () {
     return {
       shared: shared
@@ -29,17 +31,20 @@ export default {
   },
   components: {
     Headbar,
-    Sidenav,
+    Leftbar,
+    Rightbar,
     MainContent
   },
   watch: {
     '$route' (to, from) {
       // 对路由变化作出响应...
-      console.log('to=', this.to, 'domain=', this.domain, 'orderBy=', this.orderBy, 'sort=', this.sort)
+      console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op, 'to=', this.to)
+      /*
       shared.to = this.to
       shared.domain = this.domain
-      shared.orderBy = this.orderBy
+      shared.to = this.orderBy
       shared.sort = this.sort
+      */
     }
   },
   methods: {

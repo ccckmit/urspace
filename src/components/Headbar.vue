@@ -1,9 +1,12 @@
 <template>
   <div id="headbar">
-    <a id="menuToggle"  @click="menuToggle">&#9776;</a> &nbsp;
+    <a @click="menuToggle('left')">&#9776;</a> &nbsp;
     <router-link to="/sms/all">{{mt('all')}}</router-link> /
     <router-link v-if="(domain||'all') != 'all'" :to="domainLink" class="captalize">{{mt(domain)}}</router-link>
-    <div class="dropdown" style="width:8em">
+    <div class="dropdown" style="width:2em">
+      <a id="keepToggle"  @click="menuToggle('right')">&#9776;</a>
+    </div>
+    <div class="dropdown">
       <button class="dropbtn">繁體中文</button>
       <div class="dropdown-content">
         <a href="#en">English</a>
@@ -56,7 +59,8 @@ export default {
     }
   },
   mounted: function () {
-    if (window.innerWidth <= 700) this.menuToggle()
+    if (window.innerWidth <= 1000) this.menuToggle('right')
+    if (window.innerWidth <= 700) this.menuToggle('left')
   },
   computed: {
     domainLink: function () {
@@ -67,11 +71,11 @@ export default {
     toLink: function (op) {
       return `/sms/${this.domain}/${op}`
     },
-    menuToggle: function (event) {
-      var sidenav = document.getElementById('sidenav')
-      var sidebar = document.getElementById('sidebar')
+    menuToggle: function (menuName) {
+      var sidenav = document.getElementById(menuName + 'nav')
+      //      var sidebar = document.getElementById(menuName + 'bar')
       sidenav.style.width = (sidenav.style.width === '0px') ? '200px' : '0px'
-      sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
+      //      sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
     },
     logout: function (event) {
       this.shared.clearUser()

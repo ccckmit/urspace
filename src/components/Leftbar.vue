@@ -1,15 +1,15 @@
 <template>
-  <div id="sidenav">
-    <div id="sidebar">
+  <div id="leftnav">
+<!--    <div id="leftbar"> -->
       <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="sub" class="captalize">{{mt(sub)}}</router-link>
-    </div>
+<!--    </div> -->
   </div>
 </template>
 <script>
 import mixin from '../lib/mixin'
 
 export default {
-  name: 'sidenav',
+  name: 'leftbar',
   props: [ 'shared', 'domain' ],
   mixins: [mixin],
   data () {

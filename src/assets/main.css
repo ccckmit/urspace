@@ -113,28 +113,38 @@ h6 { font-size:100%; font-weight:bold; }
   padding: 30px 0px 0px 0px;
 }
 */
-/* ================ sidenav ===============*/
-#sidenav , #sidebar {
-  margin:0;
+/* ================ leftnav ===============*/
+#leftnav, #leftbar, #rightnav, #rightbar {
+  margin-top:30px;
   width: 200px;
   height: 100vh;
-  float:left;
-  top: 0;
+  top: 30px;
   left: 0;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 20px;
   color:white;
   background-color:#336699;
+  white-space:nowrap;
 }
 
-#sidebar {
+#leftnav, #leftbar {
+  float: left;
+  text-align: left;
+}
+
+#rightnav, #rightbar {
+  float: right;
+  text-align: right;
+}
+
+#leftbar, #rightbar {
   position: fixed;
   top: 30px;
   white-space:nowrap;
 }
 
-#sidenav a {
+#leftnav a , #rightnav a {
   padding: 8px 16px;
   text-decoration: none;
   font-size: large;
@@ -145,7 +155,7 @@ h6 { font-size:100%; font-weight:bold; }
 
 /*
 @media screen and (max-width: 600px) {
-  #sidenav, #sidebar {
+  #leftnav, #leftbar {
     width:0px;
   }
 }

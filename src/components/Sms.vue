@@ -30,9 +30,19 @@ import service from '../lib/service'
 
 var db = service.db
 
+var opMap = {
+  'new': {orderBy: 'time', sort: 'desc'},
+  'hot': {orderBy: 'priority'},
+  'near': {},
+  'my': {},
+  'follow': {},
+  'read': {},
+  'random': {}
+}
+
 export default {
   name: 'Sms',
-  props: ['shared', 'domain'],
+  props: ['shared', 'domain', 'op', 'to'],
   data () {
     return {
       messageContent: '',
@@ -69,9 +79,17 @@ export default {
       if (this.busyLoadMore || this.isEnd) return
       this.busyLoadMore = true
       if (self.isEnd) return
-
-      let sort = this.shared.sort || ''
-      let orderBy = this.shared.orderBy || 'time'
+      console.log('this.op=', this.op)
+      let toOp = opMap[this.op]
+      let sort = ''
+      let orderBy = 'time'
+      if (toOp != null) {
+        sort = toOp.sort
+        orderBy = toOp.orderBy
+      }
+      console.log('orderBy=', orderBy, ' sort=', sort)
+      // let sort = this.shared.sort || ''
+      // let orderBy = this.shared.orderBy || 'time'
       setTimeout(() => {
         let start = (this.messages.length === 0 || sort === 'desc') ? null : this.messages[this.messages.length - 1].time + 1
         let end = (this.messages.length === 0 || sort !== 'desc') ? null : this.messages[this.messages.length - 1].time - 1
@@ -95,14 +113,13 @@ export default {
 .messageContent {
   border-top:1px solid #dddddd;
   border-bottom:1px solid #dddddd;
-  /* display: inline-block; */
   width: 100%;
 }
 textarea {
-  /* width: ;*/
-  width: 100%;
+  margin-left:auto;
+  margin-right:auto;
+  width: 95%;
   display: inline-block;
   height: 100px;
-  padding: 10px;
 }
 </style>
