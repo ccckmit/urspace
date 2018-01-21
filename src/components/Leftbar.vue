@@ -10,7 +10,7 @@ import mixin from '../lib/mixin'
 
 export default {
   name: 'leftbar',
-  props: [ 'shared', 'domain' ],
+  props: [ 'domain' ],
   mixins: [mixin],
   data () {
     return {

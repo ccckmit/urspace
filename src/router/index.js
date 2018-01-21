@@ -12,8 +12,7 @@ function setProps (route) {
     domain: route.params.domain || 'all',
     // orderBy: route.params.orderBy || 'new',
     // sort: route.params.domain || 'inc',
-    op: route.params.op || 'new',
-    to: route.params.to || ''
+    op: route.params.op || 'new'
   }
 }
 
@@ -25,9 +24,9 @@ export default new Router({
     // { path: '/login', component: MainPage, props: { page: 'login' } },
     { path: '/:page', component: MainPage, props: setProps },
     { path: '/:page/:domain', component: MainPage, props: setProps }, // props: true
-    { path: '/:page/:domain/:op', component: MainPage, props: setProps },
-    { path: '/:page/:domain/:op/:to', component: MainPage, props: setProps }
+    { path: '/:page/:domain/:op', component: MainPage, props: setProps }
     /*
+    { path: '/:page/:domain/:op/:to', component: MainPage, props: setProps }
     { path: '/login', component: MainPage, props: { to: 'login' } },
     { path: '/main', component: MainPage, props: { to: 'sms' } },
     { path: '/sms', component: MainPage, props: { to: 'sms' } },

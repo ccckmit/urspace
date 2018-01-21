@@ -1,6 +1,15 @@
 <template>
   <div id="rightnav">
-    <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="sub" class="captalize">{{mt(sub)}}</router-link>
+    <div class="big-padding">
+      <input type="text" :value="query" class="center"/>
+      <br/><br/>
+      <div class="wide center">
+        <button id="search" class="success">類別查詢</button>
+        <button id="search" class="success">全文檢索</button>
+      </div>
+    </div>
+<!--    <router-link to="sub" class="captalize"></router-link> -->
+
   </div>
 </template>
 <script>
@@ -8,33 +17,21 @@ import mixin from '../lib/mixin'
 
 export default {
   name: 'rightbar',
-  props: [ 'shared', 'domain' ],
+  props: [ 'domain' ],
   mixins: [mixin],
   data () {
     return {
-      subDomain: {
-        all: ['people', 'object', 'article', 'image', 'video', 'music', 'book', 'place'],
-        people: ['family', 'friends', 'followBy'],
-        object: ['sale', 'buy'],
-        article: ['news', 'rss'],
-        image: ['scene', 'portrait', 'family'],
-        video: ['movie', 'tv', 'youtube', 'sport'],
-        music: ['MTV', 'voice'],
-        book: ['science', 'math', 'novel', 'classic'],
-        place: ['near', 'asia', 'europe', 'america', 'africa']
-      }
+      query: ''
     }
   },
   created: function () {
   },
   methods: {
-    domainLink (domain) {
-      return '/sms/' + domain
-    }
   }
 }
 </script>
 
 <style scoped>
-
+input { height: 1.6em; text-align: center; }
+button { }
 </style>

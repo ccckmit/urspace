@@ -3,7 +3,7 @@
     <login-form :shared="shared"/>
   </div>
   <div v-else>
-    <sms :shared="shared" :domain="domain" :op="op" :to="to"/>
+    <sms :shared="shared" :domain="domain" :op="op"/>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import LoginForm from './LoginForm.vue'
 
 export default {
   name: 'mainContent',
-  props: ['shared', 'page', 'domain', 'op', 'to'],
+  props: ['shared', 'page', 'domain', 'op'],
   data () {
     return {
     }

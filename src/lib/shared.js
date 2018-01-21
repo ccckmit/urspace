@@ -5,17 +5,18 @@ const shared = {}
 export default shared
 
 shared.user = userJson ? JSON.parse(userJson) : null
+shared.language = sessionStorage.getItem('urspace_language')
 
-shared.setUser = function (user) {
-  if (debug) console.log('setUser:', user)
-  this.user = user
-  sessionStorage.setItem('urspace_user', JSON.stringify(user))
+shared.setVar = function (name, obj) {
+  if (debug) console.log('setVar:', obj)
+  this[name] = obj
+  sessionStorage.setItem('urspace_' + name, JSON.stringify(obj))
 }
 
-shared.clearUser = function () {
-  if (debug) console.log('clearUser:', this.user)
-  this.user = null
-  sessionStorage.removeItem('urspace_user')
+shared.clearVar = function (name) {
+  if (debug) console.log('clearVar:', this[name])
+  this[name] = null
+  sessionStorage.removeItem('urspace_' + name)
 }
 
 shared.isLogin = function () {

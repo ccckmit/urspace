@@ -30,7 +30,7 @@ export default {
     googleLogin: function () {
       const self = this
       service.googleLogin().then(function (user) {
-        self.shared.setUser({ displayName: user.displayName, email: user.email, uid: user.uid })
+        self.shared.setVar('user', { displayName: user.displayName, email: user.email, uid: user.uid })
         self.$router.push({path: '/sms'})
       }).catch(function (error) {
         alert('登入失敗！' + error)

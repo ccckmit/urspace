@@ -1,6 +1,4 @@
-const MT = {
-  to: 'tw'
-}
+const MT = {}
 
 export default MT
 
@@ -48,12 +46,18 @@ const dict = {
   africa: {tw: '非洲'},
   home: {tw: '首頁'},
   help: {tw: '說明'},
-  rss: {en: 'RSS'}
+  rss: {en: 'RSS'},
+  publish: {tw: '發佈'},
+  clear: {tw: '清除'},
+  reply: {tw: '回覆'},
+  edit: {tw: '編輯'},
+  'waiting for data loading...': {tw: '載入新資料中，請等候 ...'},
+  'end of data, load complete!': {tw: '資料全部載入完畢，已到結尾！'}
 }
 
-export function mt (e) {
+export function mt (e, to) {
   const word = dict[e.toLowerCase()] || {}
-  return word[MT.to] || e
+  return word[to] || e
 }
 
 MT.mt = mt

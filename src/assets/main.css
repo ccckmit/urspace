@@ -19,6 +19,7 @@ h4 { font-size:100%; font-weight:bold; }
 h5 { font-size:100%; font-weight:bold; }
 h6 { font-size:100%; font-weight:bold; }
 
+hr { border-top: 1px solid #999999; border-bottom:0px; }
 .center {
   text-align :center; 
   margin-left:auto;
@@ -135,7 +136,7 @@ h6 { font-size:100%; font-weight:bold; }
 
 #rightnav, #rightbar {
   float: right;
-  text-align: right;
+/*  text-align: right; */
 }
 
 #leftbar, #rightbar {
@@ -225,7 +226,13 @@ h6 { font-size:100%; font-weight:bold; }
   font-size: normal;
 }
 
-#headbar a  {
+#headbar a {
+  padding-top: 10px;
+  /*
+  top: 30px;
+  margin-top: 30px;
+ */
+  position: relative;
   text-decoration: none;
 /*  color: inherit; */
   color: #dddddd;

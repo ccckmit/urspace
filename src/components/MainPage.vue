@@ -1,12 +1,12 @@
 <template>
   <div>
-    <headbar :shared="shared" :domain="domain"/>
+    <headbar :domain="domain" :op="op"/>
     <div>
-      <leftbar :shared="shared" :domain="domain"/>
-      <rightbar :shared="shared" :domain="domain"/>
+      <leftbar :domain="domain"/>
+      <rightbar :domain="domain"/>
       <div>
         <div id="content">
-          <main-content :shared="shared" :page="page" :domain="domain" :op="op" :to="to"/>
+          <main-content :page="page" :domain="domain" :op="op"/>
           <div id="footer"></div>
         </div>
       </div>
@@ -19,16 +19,10 @@ import Headbar from './Headbar.vue'
 import Leftbar from './Leftbar.vue'
 import Rightbar from './Rightbar.vue'
 import MainContent from './MainContent.vue'
-import shared from '../lib/shared'
 
 export default {
   name: 'mainPage',
-  props: ['page', 'domain', 'op', 'to'],
-  data () {
-    return {
-      shared: shared
-    }
-  },
+  props: ['page', 'domain', 'op'],
   components: {
     Headbar,
     Leftbar,
@@ -38,7 +32,7 @@ export default {
   watch: {
     '$route' (to, from) {
       // 对路由变化作出响应...
-      console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op, 'to=', this.to)
+      console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op)
       /*
       shared.to = this.to
       shared.domain = this.domain

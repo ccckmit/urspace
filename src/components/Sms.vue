@@ -5,21 +5,21 @@
       <div v-if="shared.isLogin()" class="message">
         <div><a href="#">{{shared.user.displayName}}</a></div>
         <div class="messageContent">
-          <textarea v-model="messageContent" placeholder="新增貼文"></textarea>
+          <textarea v-model="messageContent"></textarea>
         </div>
         <div>
-          <button class="info" @click="postMessage">發佈</button>&nbsp;
-          <button class="info">清除</button>
+          <button class="info" @click="postMessage">{{mt('publish')}}</button>&nbsp;
+          <button class="info">{{mt('clear')}}</button>
         </div>
       </div>
       <div v-for="message in messages" :key="message.id" class="message">
         <div><a href="#">{{message.by}}</a><label class="right">{{timeToIso(message.time)}}</label></div>
         <div class="messageContent" v-html="md2html(message.content)"></div>
-        <div><button>回覆</button>&nbsp;<button>編輯</button></div>
+        <div><button>{{mt('reply')}}</button>&nbsp;<button>{{mt('edit')}}</button></div>
       </div>
     </div>
-    <div v-if="isEnd===false" class="center">載入新資料中，請等候 ...</div>
-    <div v-else class="center">資料全部載入完畢，已到結尾！</div>
+    <div v-if="isEnd===false" class="center">{{mt('waiting for data loading...')}}</div>
+    <div v-else class="center">{{mt('end of data, load complete!')}}</div>
   </div>
 </div>
 </template>
@@ -27,6 +27,7 @@
 <script>
 import markdown from '../lib/markdown'
 import service from '../lib/service'
+import mixin from '../lib/mixin'
 
 var db = service.db
 
@@ -42,7 +43,8 @@ var opMap = {
 
 export default {
   name: 'Sms',
-  props: ['shared', 'domain', 'op', 'to'],
+  mixins: [mixin],
+  props: ['domain', 'op', 'to'],
   data () {
     return {
       messageContent: '',
