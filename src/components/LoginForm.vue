@@ -16,10 +16,12 @@
 
 <script>
 import service from '../lib/service'
+import mixin from '../lib/mixin'
 
 export default {
   name: 'loginForm',
-  props: ['shared'],
+  // props: ['shared'],
+  mixins: [mixin],
   data () {
     return {
     }

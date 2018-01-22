@@ -51,6 +51,9 @@ const dict = {
   clear: {tw: '清除'},
   reply: {tw: '回覆'},
   edit: {tw: '編輯'},
+  en: {en: 'English', tw: '英文'},
+  tw: {tw: '繁體中文'},
+  cn: {tw: '簡體中文'},
   'waiting for data loading...': {tw: '載入新資料中，請等候 ...'},
   'end of data, load complete!': {tw: '資料全部載入完畢，已到結尾！'}
 }

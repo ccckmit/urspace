@@ -1,7 +1,7 @@
 <template>
   <div id="leftnav">
 <!--    <div id="leftbar"> -->
-      <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="sub" class="captalize">{{mt(sub)}}</router-link>
+      <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="domainLink(sub)" class="captalize">{{mt(sub)}}</router-link>
 <!--    </div> -->
   </div>
 </template>
@@ -30,9 +30,6 @@ export default {
   created: function () {
   },
   methods: {
-    domainLink (domain) {
-      return '/sms/' + domain
-    }
   }
 }
 </script>

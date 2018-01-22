@@ -1,19 +1,21 @@
 <template>
   <div v-if="page==='login'">
-    <login-form :shared="shared"/>
+    <login-form/>
   </div>
   <div v-else>
-    <sms :shared="shared" :domain="domain" :op="op"/>
+    <sms :domain="domain" :op="op"/>
   </div>
 </template>
 
 <script>
 import Sms from './Sms.vue'
 import LoginForm from './LoginForm.vue'
+import mixin from '../lib/mixin'
 
 export default {
   name: 'mainContent',
-  props: ['shared', 'page', 'domain', 'op'],
+  props: ['page', 'domain', 'op'],
+  mixins: [mixin],
   data () {
     return {
     }

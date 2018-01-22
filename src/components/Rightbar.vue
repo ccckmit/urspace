@@ -17,7 +17,7 @@ import mixin from '../lib/mixin'
 
 export default {
   name: 'rightbar',
-  props: [ 'domain' ],
+  // props: [ 'domain' ],
   mixins: [mixin],
   data () {
     return {

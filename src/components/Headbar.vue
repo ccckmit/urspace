@@ -37,7 +37,7 @@
       <a id="keepToggle"  @click="menuToggle('right')">&#9776;</a>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">繁體中文</button>
+      <button class="dropbtn">{{mt(shared.language)}}</button>
       <div class="dropdown-content">
         <a @click="shared.setVar('language', 'en')">English</a>
         <a @click="shared.setVar('language', 'tw')">繁體中文</a>
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="dropdown">
-      <button class="dropbtn">{{mt('new')}}</button>
+      <button class="dropbtn captalize">{{mt('new')}}</button>
       <div class="dropdown-content">
         <router-link :to="toLink(domain, 'new')" class="captalize">{{mt('new')}}</router-link>
         <router-link :to="toLink(domain, 'hot')" class="captalize">{{mt('hot')}}</router-link>
@@ -82,9 +82,11 @@ export default {
     if (window.innerWidth <= 700) this.menuToggle('left')
   },
   computed: {
+    /*
     domainLink: function () {
-      return `/sms/${this.domain || 'all'}`
+      return `/sms/${this.$route.params.domain} || 'all'}`
     }
+    */
   },
   methods: {
     toLink: function (domain, op) {

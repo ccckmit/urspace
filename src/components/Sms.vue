@@ -44,7 +44,7 @@ var opMap = {
 export default {
   name: 'Sms',
   mixins: [mixin],
-  props: ['domain', 'op', 'to'],
+  props: ['domain', 'op'],
   data () {
     return {
       messageContent: '',
