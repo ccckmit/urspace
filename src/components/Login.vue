@@ -23,11 +23,9 @@ export default {
   // props: ['shared'],
   mixins: [mixin],
   data () {
-    return {
-    }
+    return {}
   },
-  created: function () {
-  },
+  created: function () {},
   methods: {
     googleLogin: function () {
       const self = this

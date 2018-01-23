@@ -70,8 +70,6 @@ db.query = async function (q) { // q = {table, orderBy, start, end, limit, desc=
   return list
 }
 
-
-
 export default {
   db: db,
   firebase: firebase,

@@ -1,7 +1,8 @@
+import { urspace } from './fireDataSetup'
+
+/*
 const MT = {}
-
 export default MT
-
 const dictionary = {
   all: {tw: '全部'},
   people: {tw: '人群'},
@@ -57,11 +58,25 @@ const dictionary = {
   'waiting for data loading...': {tw: '載入新資料中，請等候 ...'},
   'end of data, load complete!': {tw: '資料全部載入完畢，已到結尾！'}
 }
+*/
+
+let dictionary = {}
+
+function init(d) {
+  dictionary = d
+  /*
+  for (var word of words) {
+    dictionary[word.en.toLowerCase()] = word
+  }
+  */
+}
 
 export function mt (e, to) {
-  if (e == null) return 'null' // throw Error('mt:e==null')
   const word = dictionary[e.toLowerCase()] || {}
   return word[to] || e
 }
 
-MT.mt = mt
+export default { mt: mt }
+
+init(urspace.dictionary)
+// console.log('dictionary=', dictionary)

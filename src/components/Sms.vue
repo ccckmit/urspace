@@ -18,8 +18,8 @@
         <div><button>{{mt('reply')}}</button>&nbsp;<button>{{mt('edit')}}</button></div>
       </div>
     </div>
-    <div v-if="isEnd===false" class="center">{{mt('waiting for data loading...')}}</div>
-    <div v-else class="center">{{mt('end of data, load complete!')}}</div>
+    <div v-if="isEnd===false" class="center">{{mt('wait_for_load')}}</div>
+    <div v-else class="center">{{mt('end_of_data')}}</div>
   </div>
 </div>
 </template>

@@ -1,48 +1,37 @@
 import Vue from 'vue'
 import {init, db, stop} from '@/lib/fireService'
+import {ccckmit, urspace} from '@/lib/fireDataSetup'
 
 init('admin')
-/*
-var urspaceDictionary = [
 
-]
-
-var urspaceDomain = [
-  people: ['family', 'friends', 'followBy'],
-  object: ['sale', 'buy'],
-  article: ['news', 'rss'],
-  image: ['scene', 'portrait', 'family'],
-  video: ['movie', 'tv', 'youtube', 'sport'],
-  music: ['MTV', 'voice'],
-  book: ['science', 'math', 'novel', 'classic'],
-  place: ['near', 'asia', 'europe', 'america', 'africa']  
-]
-*/
-// import HelloWorld from '@/components/HelloWorld'
+async function saveAndCheck(self, path, value) {
+  expect.assertions(1)
+  db.set(path, value)
+  let valueGet = await db.get(path)
+  // console.log('valueGet=', valueGet)
+  // console.log('value=', value)
+  return expect(valueGet).toEqual(value)
+}
 
 describe('Firebase', () => {
   afterAll(() => { stop() })
+  it('db.setup(ccckmit)', async () => {
+    await saveAndCheck(this, '/domain/' + ccckmit.ownerId, ccckmit)
+  })
+  it('db.setup(ccckmit):link', async () => {
+    await saveAndCheck(this, '/domain/ccckmit/', {type: 'link', linkto: ccckmit.ownerId})
+  })
+  it('db.setup(urspace)', async () => {
+    await saveAndCheck(this, '/domain/' + urspace.ownerId, urspace)
+  })
+  it('db.setup(urspace):link', async () => {
+    await saveAndCheck(this, '/domain/urspace/', {type: 'link', linkto: urspace.ownerId})
+  })
   it('db.query(messages)', async () => {
     expect.assertions(1)
     let q = { table: 'messages', orderBy: 'time', limit: 10, sort: 'desc'}
     // console.log('q=', q)
     const list = await db.query(q)
     expect(list.length).toBe(10)
-  })
-  it('db.get(user)', done => {
-    db.get('/user/ccckmit').then(function (user) {
-      // console.log('user=', user)
-      expect(user.name).toBe('陳鍾誠')
-      done()
-    })
-  })
-  it('db.set(domain) && db.get(domain)', done => {
-    var myChildText = '課程 en:course\n書籍\n程式'
-    db.set('/domain/ccckmit/child/', myChildText)
-    db.get('/domain/ccckmit/child/').then(function (text) {
-      // console.log('text=', text)
-      expect(text).toBe(myChildText)
-      done()
-    })
   })
 })
