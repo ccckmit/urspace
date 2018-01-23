@@ -5,7 +5,7 @@ var fDb, fApp
 export function init (mode) {
   if (mode === 'admin') {
     var admin = require('firebase-admin')
-    var serviceAccount = require('../account/firebaseAdminKey.json')
+    var serviceAccount = require('../../account/firebaseAdminKey.json')
     fApp = admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       databaseURL: 'https://ccc-urspace.firebaseio.com'
@@ -45,6 +45,10 @@ db.get = async function (path) { // q = {table, orderBy, start, end, limit, desc
   var ref = fDb.ref(path)
   const snapshot = await ref.once('value')
   return snapshot.val()
+}
+
+db.set = async function (path, value) {
+  fDb.ref(path).set(value)
 }
 
 db.query = async function (q) { // q = {table, orderBy, start, end, limit, desc=false }
