@@ -23,6 +23,10 @@ export function init (mode) {
   fDb = fApp.database()
 }
 
+export function stop () {
+  return fApp.delete()
+}
+
 export async function googleLogin () {
   const googleProvider = new firebase.auth.GoogleAuthProvider()
   const result = await firebase.auth().signInWithPopup(googleProvider)
@@ -61,10 +65,12 @@ db.query = async function (q) { // q = {table, orderBy, start, end, limit, desc=
   snapshot.forEach(function (childSnapshot) {
     list.push(childSnapshot.val())
   })
-  console.log('query:q=%j list=%j', q, list)
+  // console.log('query:q=%j list=%j', q, list)
   if (q.sort === 'desc') list.reverse()
   return list
 }
+
+
 
 export default {
   db: db,

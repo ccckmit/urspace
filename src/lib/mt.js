@@ -2,7 +2,7 @@ const MT = {}
 
 export default MT
 
-const dict = {
+const dictionary = {
   all: {tw: '全部'},
   people: {tw: '人群'},
   object: {tw: '物品'},
@@ -60,7 +60,7 @@ const dict = {
 
 export function mt (e, to) {
   if (e == null) return 'null' // throw Error('mt:e==null')
-  const word = dict[e.toLowerCase()] || {}
+  const word = dictionary[e.toLowerCase()] || {}
   return word[to] || e
 }
 
