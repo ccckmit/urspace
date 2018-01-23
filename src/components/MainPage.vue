@@ -5,7 +5,7 @@
       <leftbar :domain="domain"/>
       <rightbar :domain="domain"/>
       <div>
-        <div id="content">
+        <div id="content" style="min-height: 100vh">
           <main-content :page="page" :domain="domain" :op="op"/>
           <div id="footer"></div>
         </div>
@@ -33,12 +33,6 @@ export default {
     '$route' (to, from) {
       // 对路由变化作出响应...
       console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op)
-      /*
-      shared.to = this.to
-      shared.domain = this.domain
-      shared.to = this.orderBy
-      shared.sort = this.sort
-      */
     }
   },
   methods: {

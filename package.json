@@ -14,7 +14,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "fast-crc32c": "^1.0.4",
     "firebase": "^4.8.2",
+    "firebase-admin": "^5.8.1",
     "marked": "^0.3.12",
     "vue": "^2.5.2",
     "vue-infinite-scroll": "^2.0.2",

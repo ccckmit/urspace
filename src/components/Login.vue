@@ -19,7 +19,7 @@ import service from '../lib/service'
 import mixin from '../lib/mixin'
 
 export default {
-  name: 'loginForm',
+  name: 'login',
   // props: ['shared'],
   mixins: [mixin],
   data () {

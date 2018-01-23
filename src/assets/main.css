@@ -5,6 +5,7 @@ div, body {
 
 textarea, input, select {
   border-radius: 8px;
+  padding: 5px;
 }
 
 a { 
@@ -116,11 +117,10 @@ hr { border-top: 1px solid #999999; border-bottom:0px; }
 */
 /* ================ leftnav ===============*/
 #leftnav, #leftbar, #rightnav, #rightbar {
-  margin-top:30px;
+  /* margin-top:30px; */
   width: 200px;
   height: 100vh;
   top: 30px;
-  left: 0;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 20px;
@@ -129,20 +129,24 @@ hr { border-top: 1px solid #999999; border-bottom:0px; }
   white-space:nowrap;
 }
 
-#leftnav, #leftbar {
+#leftnav {
+  left: 0;
   float: left;
   text-align: left;
 }
 
-#rightnav, #rightbar {
+#rightnav {
   float: right;
 /*  text-align: right; */
 }
 
 #leftbar, #rightbar {
   position: fixed;
-  top: 30px;
   white-space:nowrap;
+}
+
+#rightbar {
+  right: 0; /*100vw;*/
 }
 
 #leftnav a , #rightnav a {

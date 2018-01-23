@@ -24,7 +24,7 @@
     </div>
     <div class="dropdown" style="float:left">
       <button class="dropbtn">
-        <router-link to="/user">{{mt(shared.user ? shared.user.displayName : 'Login')}}</router-link>
+        <router-link to="/user">{{mt(shared.user != null ? shared.user.displayName : 'Login')}}</router-link>
       </button>
       <div class="dropdown-content">
         <router-link to="/login">{{mt('login')}}</router-link>
@@ -94,12 +94,12 @@ export default {
     },
     menuToggle: function (menuName) {
       var sidenav = document.getElementById(menuName + 'nav')
-      //      var sidebar = document.getElementById(menuName + 'bar')
+      var sidebar = document.getElementById(menuName + 'bar')
       sidenav.style.width = (sidenav.style.width === '0px') ? '200px' : '0px'
-      //      sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
+      sidebar.style.width = (sidebar.style.width === '0px') ? '200px' : '0px'
     },
     logout: function (event) {
-      this.shared.clear('user')
+      this.shared.clearVar('user')
       // this.$router.push({path: '/login'})
     }
   }

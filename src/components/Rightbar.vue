@@ -1,7 +1,7 @@
 <template>
   <div id="rightnav">
-    <div class="big-padding">
-      <input type="text" :value="query" class="center"/>
+    <div id="rightbar" class="center">
+      <input type="text" :value="query"/>
       <br/><br/>
       <div class="wide center">
         <button id="search" class="success">類別查詢</button>

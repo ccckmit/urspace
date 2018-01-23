@@ -26,10 +26,8 @@
 
 <script>
 import markdown from '../lib/markdown'
-import service from '../lib/service'
+import {db} from '../lib/service'
 import mixin from '../lib/mixin'
-
-var db = service.db
 
 var opMap = {
   'new': {orderBy: 'time', sort: 'desc'},

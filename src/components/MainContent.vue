@@ -1,15 +1,21 @@
 <template>
+<div>
   <div v-if="page==='login'">
-    <login-form/>
+    <login/>
+  </div>
+  <div v-if="page==='setting'">
+    <setting/>
   </div>
   <div v-else>
     <sms :domain="domain" :op="op"/>
   </div>
+</div>
 </template>
 
 <script>
 import Sms from './Sms.vue'
-import LoginForm from './LoginForm.vue'
+import Login from './Login.vue'
+import Setting from './Setting.vue'
 import mixin from '../lib/mixin'
 
 export default {
@@ -22,7 +28,8 @@ export default {
   },
   components: {
     Sms,
-    LoginForm
+    Login,
+    Setting
   },
   methods: {
   }

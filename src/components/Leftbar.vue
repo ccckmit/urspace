@@ -1,8 +1,8 @@
 <template>
   <div id="leftnav">
-<!--    <div id="leftbar"> -->
+    <div id="leftbar">
       <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="domainLink(sub)" class="captalize">{{mt(sub)}}</router-link>
-<!--    </div> -->
+    </div>
   </div>
 </template>
 <script>

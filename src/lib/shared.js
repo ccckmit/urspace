@@ -3,23 +3,16 @@ const debug = true
 const shared = {}
 export default shared
 
-/*
-shared.init = function () {
-  const userJson = sessionStorage.getItem('urspace_user')
-  shared.user = userJson ? JSON.parse(userJson) : null
-  shared.language = sessionStorage.getItem('urspace_language')
-}
-*/
-
 shared.init = function () {
   shared.loadVar('user')
   shared.loadVar('language')
+  console.log('shared:user=', shared.user)
 }
 
 shared.loadVar = function (name) {
   const json = sessionStorage.getItem('urspace_' + name) // ""tw""
   console.log('loadVar: json=', json)
-  this[name] = json ? JSON.parse(json) : null // "tw"
+  this[name] = (json != null) ? JSON.parse(json) : undefined // "tw"
 }
 
 shared.saveVar = function (name, value) {
@@ -28,7 +21,7 @@ shared.saveVar = function (name, value) {
 
 shared.clearVar = function (name) {
   if (debug) console.log('clearVar:', name)
-  this[name] = null
+  this[name] = undefined
   sessionStorage.removeItem('urspace_' + name)
 }
 

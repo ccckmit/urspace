@@ -59,6 +59,7 @@ const dict = {
 }
 
 export function mt (e, to) {
+  if (e == null) return 'null' // throw Error('mt:e==null')
   const word = dict[e.toLowerCase()] || {}
   return word[to] || e
 }

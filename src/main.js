@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import infiniteScroll from 'vue-infinite-scroll'
 import VueFire from 'vuefire'
+import service from './lib/service'
+
+service.init()
 
 require('./assets/main.css')
 
