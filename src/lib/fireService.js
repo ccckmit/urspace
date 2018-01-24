@@ -40,9 +40,11 @@ db.TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 db.addByPath = async function (path, value) {
   let ref = fDb.ref(path)
   var key = ref.push().key
+  value.key = key
   var command = {}
   command[key] = value
-  return ref.update(command)
+  ref.update(command)
+  return key
 }
 
 db.getByPath = async function (path) { // q = {table, orderBy, start, end, limit, desc=false }
@@ -61,13 +63,32 @@ db.queryByPath = async function (path, q) { // q = {table, orderBy, start, end, 
   ref = (q.end != null) ? ref.endAt(q.end) : ref
   ref = (q.sort === 'desc') ? ref.limitToLast(q.limit) : ref.limitToFirst(q.limit)
   const snapshot = await ref.once('value')
-  const list = []
+  // console.log('snapshot=', snapshot)
+  const kvList = []
   snapshot.forEach(function (childSnapshot) {
-    list.push(childSnapshot.val())
+    kvList.push({key: childSnapshot.key, value:childSnapshot.val()})
   })
   // console.log('query:q=%j list=%j', q, list)
-  if (q.sort === 'desc') list.reverse()
-  return list
+  if (q.sort === 'desc') kvList.reverse()
+  return kvList
+}
+
+db.getRecord = async function (table, key) {
+  return db.getByPath(`/table/${table}/${key}`)
+}
+
+db.setRecord = async function (table, key, record) {
+  record.time = record.time || db.TIMESTAMP // 所有訊息都要有時間戳記
+  return db.setByPath(`/table/${table}/${key}`, record)
+}
+
+db.addRecord = async function (table, record) {
+  record.time = record.time || db.TIMESTAMP // 所有訊息都要有時間戳記
+  return db.addByPath('/table/' + table + '/', record) // return key (in promise)
+}
+
+db.queryRecord = async function (table, q) {
+  return db.queryByPath('/table/' + table + '/', q)
 }
 
 export default {

@@ -46,6 +46,7 @@ describe('Firebase', () => {
     addMessages(someMessages)
     let q = { orderBy: 'time', limit: 5, sort: 'desc'}
     const list = await db.queryRecord('message', q)
+    console.log('query: list=', list)
     expect(list.length).toBe(q.limit)
   })
   it('get(/ccckmit/', async () => {

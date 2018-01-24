@@ -65,7 +65,8 @@ export default {
         by: user.displayName,
         content: self.messageContent
       }
-      db.addMessage(record).then(function () {
+      // var ref = db.addMessage(record)
+      db.addMessage(record).then(function (key) {
         record.time = Date.now()
         self.messages.unshift(record)
         self.messageContent = ''
@@ -99,9 +100,11 @@ export default {
         let end = (this.messages.length === 0 || sort !== 'desc') ? null : this.messages[this.messages.length - 1].time - 1
         let q = { orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
         console.log('q=', q)
-        db.queryRecord('message', q).then(function (list) {
-          self.messages.push(...list)
-          self.isEnd = (list.length < step)
+        db.queryRecord('message', q).then(function (kvList) {
+          for (let kv of kvList) {
+            self.messages.push(kv.value)
+          }
+          self.isEnd = (kvList.length < step)
         })
         this.busyLoadMore = false
       }, 500)
