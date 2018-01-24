@@ -37,26 +37,26 @@ export const db = {}
 
 db.TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 
-db.add = async function (table, record) {
-  let ref = fDb.ref('/' + table + '/')
+db.addByPath = async function (path, value) {
+  let ref = fDb.ref(path)
   var key = ref.push().key
   var command = {}
-  command[key] = record
+  command[key] = value
   return ref.update(command)
 }
 
-db.get = async function (path) { // q = {table, orderBy, start, end, limit, desc=false }
+db.getByPath = async function (path) { // q = {table, orderBy, start, end, limit, desc=false }
   var ref = fDb.ref(path)
   const snapshot = await ref.once('value')
   return snapshot.val()
 }
 
-db.set = async function (path, value) {
+db.setByPath = async function (path, value) {
   fDb.ref(path).set(value)
 }
 
-db.query = async function (q) { // q = {table, orderBy, start, end, limit, desc=false }
-  var ref = fDb.ref('/' + q.table + '/').orderByChild(q.orderBy)
+db.queryByPath = async function (path, q) { // q = {table, orderBy, start, end, limit, desc=false }
+  var ref = fDb.ref(path).orderByChild(q.orderBy)
   ref = (q.start != null) ? ref.startAt(q.start) : ref
   ref = (q.end != null) ? ref.endAt(q.end) : ref
   ref = (q.sort === 'desc') ? ref.limitToLast(q.limit) : ref.limitToFirst(q.limit)

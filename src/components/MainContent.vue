@@ -3,11 +3,9 @@
   <div v-if="page==='login'">
     <login/>
   </div>
-  <div v-if="page==='setting'">
-    <setting/>
-  </div>
   <div v-else>
-    <sms :domain="domain" :op="op"/>
+    <setting v-if="page==='setting'"/>
+    <sms v-else :domain="domain" :op="op" />
   </div>
 </div>
 </template>

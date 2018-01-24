@@ -1,13 +1,13 @@
 export const urspace = {
   type: 'user',
-  ownerId: 'yRK5q5iZ14V2OJRW47dotv9FjTA3',
+  uid: 'yRK5q5iZ14V2OJRW47dotv9FjTA3',
   name: 'UrSpace',
   reader: 'all',
   writer: 'editor',
-  text: `# UrSpace`,
+  text: `# UrSpace`
 }
 
-urspace.dictionary = {
+urspace.dictionaryText = JSON.stringify({
   all: {tw: '全部'},
   people: {tw: '人群'},
   object: {tw: '物品'},
@@ -55,15 +55,17 @@ urspace.dictionary = {
   publish: {tw: '發佈'},
   clear: {tw: '清除'},
   reply: {tw: '回覆'},
+  delete: {tw: '刪除'},
+  view: {tw: '檢視'},
   edit: {tw: '編輯'},
   en: {en: 'English', tw: '英文'},
   tw: {tw: '繁體中文'},
   cn: {tw: '簡體中文'},
   wait_for_load: {en: 'waiting for data loading...', tw: '載入新資料中，請等候 ...'},
-  end_data: {en: 'end of data, load complete!', tw: '資料全部載入完畢，已到結尾！'}
-}
+  end_of_data: {en: 'end of data, load complete!', tw: '資料全部載入完畢，已到結尾！'}
+})
 
-urspace.childDomain = {
+urspace.childDomainText = JSON.stringify({
   people: ['family', 'friends', 'followBy'],
   object: ['sale', 'buy'],
   article: ['news', 'rss'],
@@ -71,23 +73,23 @@ urspace.childDomain = {
   video: ['movie', 'tv', 'youtube', 'sport'],
   music: ['MTV', 'voice'],
   book: ['science', 'math', 'novel', 'classic'],
-  place: ['near', 'asia', 'europe', 'america', 'africa']  
-}
+  place: ['near', 'asia', 'europe', 'america', 'africa']
+})
 
 export const ccckmit = {
   type: 'user',
-  ownerId: 'AuSf7PuZpKcrJBcp8nH3RKcuvTi1',
+  uid: 'AuSf7PuZpKcrJBcp8nH3RKcuvTi1',
   name: '陳鍾誠',
   reader: 'all',
   writer: 'editor',
-  text: `# 陳鍾誠`,
+  text: `# 陳鍾誠`
 }
 
-ccckmit.childDomain = {
+ccckmit.childDomainText = JSON.stringify({
   course: ['網頁設計', '計算機結構', '視窗程式', '系統程式', '人工智慧'],
   book: ['機率統計', '高等 C 語言'],
   place: ['金門', '金門大學']
-}
+})
 
 export default { urspace, ccckmit }
 

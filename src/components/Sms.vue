@@ -8,14 +8,19 @@
           <textarea v-model="messageContent"></textarea>
         </div>
         <div>
-          <button class="info" @click="postMessage">{{mt('publish')}}</button>&nbsp;
-          <button class="info">{{mt('clear')}}</button>
+          <button @click="postMessage">{{mt('publish')}}</button>&nbsp;
+          <button>{{mt('clear')}}</button>
         </div>
       </div>
       <div v-for="message in messages" :key="message.id" class="message">
         <div><a href="#">{{message.by}}</a><label class="right">{{timeToIso(message.time)}}</label></div>
-        <div class="messageContent" v-html="md2html(message.content)"></div>
-        <div><button>{{mt('reply')}}</button>&nbsp;<button>{{mt('edit')}}</button></div>
+        <div class="messageContent" v-html="text2html(message.content)"></div>
+        <div>
+          <button>{{mt('reply')}}</button>
+          <button>{{mt('view')}}</button>
+          <button>{{mt('edit')}}</button>
+          <button>{{mt('delete')}}</button>
+        </div>
       </div>
     </div>
     <div v-if="isEnd===false" class="center">{{mt('wait_for_load')}}</div>
@@ -58,10 +63,9 @@ export default {
       var record = {
         uid: user.uid,
         by: user.displayName,
-        content: self.messageContent,
-        time: db.TIMESTAMP
+        content: self.messageContent
       }
-      db.add('messages', record).then(function () {
+      db.addMessage(record).then(function () {
         record.time = Date.now()
         self.messages.unshift(record)
         self.messageContent = ''
@@ -69,8 +73,8 @@ export default {
         if (err) alert('新增訊息失敗：' + err)
       })
     },
-    md2html (md) {
-      return markdown.toHtml(md)
+    text2html (text) {
+      return markdown.textToHtml(text)
     },
     loadMore () {
       const self = this
@@ -93,9 +97,9 @@ export default {
       setTimeout(() => {
         let start = (this.messages.length === 0 || sort === 'desc') ? null : this.messages[this.messages.length - 1].time + 1
         let end = (this.messages.length === 0 || sort !== 'desc') ? null : this.messages[this.messages.length - 1].time - 1
-        let q = { table: 'messages', orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
+        let q = { orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
         console.log('q=', q)
-        db.query(q).then(function (list) {
+        db.queryRecord('message', q).then(function (list) {
           self.messages.push(...list)
           self.isEnd = (list.length < step)
         })

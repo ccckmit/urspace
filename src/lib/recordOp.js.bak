@@ -1,0 +1,38 @@
+import service from './service'
+
+const db = service.db
+const op = {}
+export default op
+
+op.fieldToObj = function (record, field) {
+  var fieldText = record[field] || '{}'
+  return JSON.parse(fieldText)  
+}
+
+op.getChildMap = function(record) {
+  return op.fieldToObj(record, 'childMapText')
+}
+
+op.getDictionary = function (record) {
+  return op.fieldToObj(record, 'dictionary')
+}
+
+const pathMap = {
+  user: 'uid',
+  link: 'path',
+  message: 'mid'
+}
+
+op.getPath = function (record) {
+  return pathMap[record.type]
+}
+
+op.save = function (record) {
+  var path = op.getPath(record)
+  return db.setRecord('record', path, record)
+}
+
+op.load = function (path) {
+  return db.getRecord('record', path)
+}
+

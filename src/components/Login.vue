@@ -1,6 +1,6 @@
 <template>
-  <div class="message center" style="height:80vh">
-    <div style="top:20px; position:relative;">
+  <div class="message center">
+    <div>
       <p v-if="shared.isLogin()" class="big-padding">
         您已經登入了，身分是： {{shared.user.displayName}}
       </p>
