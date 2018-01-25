@@ -15,18 +15,6 @@ db.getUser = async function (uid) {
   return db.getRecord('user', uid)
 }
 
-db.addMessage = async function (message) {
-  return db.addRecord('message', message)
-}
-
-db.setMessage = async function (message) {
-  return db.setRecord('message', message.mid, message)
-}
-
-db.getMessage = async function (mid) {
-  return db.getRecord('message', mid)
-}
-
 db.addLink = async function (link) {
   return db.addRecord('link', link)
 }
@@ -37,4 +25,40 @@ db.setLink = async function (link) {
 
 db.getLink = async function (path) {
   return db.getRecord('link', path)
+}
+
+// ======================== msg (domain, user) ==================
+
+db.addMessage = async function (msg) {
+  let mid = await db.addRecord(`message/${msg.domain}`, msg)
+  db.setByPath(`/user/${msg.uid}/domain/${msg.domain}/${mid}`, msg)
+  return mid
+}
+
+db.setMessage = async function (msg) {
+  db.setRecord(`message/${msg.domain}`, msg.mid, msg)
+  db.setByPath(`/user/${msg.uid}/domain/${msg.domain}/${msg.mid}`, msg)
+}
+
+db.getMessage = async function (msg) {
+  return db.getRecord(`message/${msg.domain}`, msg.mid)
+}
+
+db.queryMessage = async function (q) {
+  q.domain = q.domain || 'all'
+  if (q.domain === 'all') q.domain = ''
+  let kvList = await db.queryByPath(`/message/${q.domain}`, q)
+  let messageList = []
+  for (let kv of kvList) {
+    let message = kv.value.time ? kv.value : Object.values(kv.value)[0] // kv in format {key:xxx, value:message} or {key:xxx, value:{mid: message}} ?
+    messageList.push(message)
+  }
+  console.log('q=', q)
+  if (q.sort === 'desc') { // firebase query orderBy 之後排序似乎沒有真正落實，只好自己重排一次。
+    messageList.sort((a, b) => a[q.orderBy] < b[q.orderBy])
+  } else {
+    messageList.sort((a, b) => a[q.orderBy] > b[q.orderBy])
+  }
+  console.log('messageList=', messageList)
+  return messageList
 }

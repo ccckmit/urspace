@@ -4,7 +4,9 @@ var fDb, fApp
 
 export function init (mode) {
   if (mode === 'admin') {
-    var admin = require('firebase-admin')
+    var fadminModule = 'firebase-admin'
+    var admin = require(`${fadminModule}`) // 由於直接 require 會有 eslint 報警告，所以改用間接引用。
+    // 上述寫法參考：https://github.com/webpack/webpack/issues/196
     var serviceAccount = require('../../account/firebaseAdminKey.json')
     fApp = admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
@@ -37,13 +39,17 @@ export const db = {}
 
 db.TIMESTAMP = firebase.database.ServerValue.TIMESTAMP
 
+db.clear = async function () {
+  return db.setByPath('/', {})
+}
+
 db.addByPath = async function (path, value) {
   let ref = fDb.ref(path)
   var key = ref.push().key
   value.key = key
   var command = {}
   command[key] = value
-  ref.update(command)
+  await ref.update(command)
   return key
 }
 
@@ -54,7 +60,7 @@ db.getByPath = async function (path) { // q = {table, orderBy, start, end, limit
 }
 
 db.setByPath = async function (path, value) {
-  fDb.ref(path).set(value)
+  return fDb.ref(path).set(value)
 }
 
 db.queryByPath = async function (path, q) { // q = {table, orderBy, start, end, limit, desc=false }
@@ -63,32 +69,30 @@ db.queryByPath = async function (path, q) { // q = {table, orderBy, start, end, 
   ref = (q.end != null) ? ref.endAt(q.end) : ref
   ref = (q.sort === 'desc') ? ref.limitToLast(q.limit) : ref.limitToFirst(q.limit)
   const snapshot = await ref.once('value')
-  // console.log('snapshot=', snapshot)
   const kvList = []
   snapshot.forEach(function (childSnapshot) {
-    kvList.push({key: childSnapshot.key, value:childSnapshot.val()})
+    kvList.push({key: childSnapshot.key, value: childSnapshot.val()})
   })
-  // console.log('query:q=%j list=%j', q, list)
   if (q.sort === 'desc') kvList.reverse()
   return kvList
 }
 
 db.getRecord = async function (table, key) {
-  return db.getByPath(`/table/${table}/${key}`)
+  return db.getByPath(`/${table}/${key}`)
 }
 
 db.setRecord = async function (table, key, record) {
   record.time = record.time || db.TIMESTAMP // 所有訊息都要有時間戳記
-  return db.setByPath(`/table/${table}/${key}`, record)
+  return db.setByPath(`/${table}/${key}`, record)
 }
 
 db.addRecord = async function (table, record) {
   record.time = record.time || db.TIMESTAMP // 所有訊息都要有時間戳記
-  return db.addByPath('/table/' + table + '/', record) // return key (in promise)
+  return db.addByPath('/' + table + '/', record) // return key (in promise)
 }
 
 db.queryRecord = async function (table, q) {
-  return db.queryByPath('/table/' + table + '/', q)
+  return db.queryByPath('/' + table + '/', q)
 }
 
 export default {

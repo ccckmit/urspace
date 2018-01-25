@@ -84,7 +84,6 @@ export default {
       if (this.busyLoadMore || this.isEnd) return
       this.busyLoadMore = true
       if (self.isEnd) return
-      console.log('this.op=', this.op)
       let toOp = opMap[this.op]
       let sort = ''
       let orderBy = 'time'
@@ -92,19 +91,16 @@ export default {
         sort = toOp.sort
         orderBy = toOp.orderBy
       }
-      console.log('orderBy=', orderBy, ' sort=', sort)
-      // let sort = this.shared.sort || ''
-      // let orderBy = this.shared.orderBy || 'time'
       setTimeout(() => {
         let start = (this.messages.length === 0 || sort === 'desc') ? null : this.messages[this.messages.length - 1].time + 1
         let end = (this.messages.length === 0 || sort !== 'desc') ? null : this.messages[this.messages.length - 1].time - 1
-        let q = { orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
-        console.log('q=', q)
-        db.queryRecord('message', q).then(function (kvList) {
-          for (let kv of kvList) {
-            self.messages.push(kv.value)
+        let q = { domain: this.domain, orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
+        console.log('loadMore:this.domain=', this.domain)
+        db.queryMessage(q).then(function (qMsgList) {
+          for (let qMsg of qMsgList) {
+            self.messages.push(qMsg)
           }
-          self.isEnd = (kvList.length < step)
+          self.isEnd = (qMsgList.length < step)
         })
         this.busyLoadMore = false
       }, 500)

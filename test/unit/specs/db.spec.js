@@ -5,7 +5,6 @@ import someMessages from './someMessages.json'
 // import domainOp from '@/lib/domainOp'
 
 const db = service.db
-service.init('admin')
 
 async function saveCheck(table, key, record) {
   expect.assertions(1)
@@ -16,16 +15,24 @@ async function saveCheck(table, key, record) {
   return expect(obj).toEqual(record)
 }
 
-function addMessages(messages) {
+async function addMessages(messages) {
+  let midList = []
   for (let message of messages) {
-    db.addMessage(message)
+    midList.push(await db.addMessage(message))
   }
+  return midList
 }
 
 describe('Firebase', () => {
   afterAll(() => { service.stop() })
-  beforeAll(() => {
+  beforeAll(async () => {
+    service.init('admin')
+    
     // console.log('beforeAll:domainOp=', domainOp)
+  })
+  it('db.clear()', async () => {
+    let result = await db.clear()
+    expect(result).toBe(undefined)
   })
   it('db.setup(ccckmit)', async () => {
     await saveCheck('user', ccckmit.uid, ccckmit)
@@ -41,13 +48,25 @@ describe('Firebase', () => {
     let link = {linkto: 'user:' + urspace.uid}
     await saveCheck('link', 'urspace', link)
   })
-  it('addMessages(someMessages) and db.queryRecord(message order by time desc)', async () => {
+  it('addMessages(someMessages)', async () => {
     expect.assertions(1)
-    addMessages(someMessages)
+    let midList = await addMessages(someMessages)
+    console.log('midList=', midList)
+    expect(midList.length).toBe(someMessages.length)
+  })
+  it('db.queryRecord(message order by time desc)', async () => {
+    expect.assertions(1)
     let q = { orderBy: 'time', limit: 5, sort: 'desc'}
-    const list = await db.queryRecord('message', q)
-    console.log('query: list=', list)
+    const list = await db.queryMessage(q)
+    // console.log('query: list=', JSON.stringify(list, null, 2))
     expect(list.length).toBe(q.limit)
+  })
+  it('db.queryRecord(code message order by time desc)', async () => {
+    expect.assertions(1)
+    let q = { domain:'code', orderBy: 'time', limit: 5, sort: 'desc'}
+    const list = await db.queryMessage(q)
+    // console.log('query: list=', JSON.stringify(list, null, 2))
+    expect(list.length).toBe(3)
   })
   it('get(/ccckmit/', async () => {
     expect.assertions(1)
