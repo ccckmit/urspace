@@ -44,43 +44,11 @@ db.getMessage = async function (msg) {
   return db.getRecord(`message/${msg.domain}`, msg.mid)
 }
 
-function recursiveAddMessage (obj, messageList) {
-  // console.log('obj=%j typeof=%s', obj, typeof obj)
-  if (typeof obj !== 'object') return
-  if (obj.content != null) {
-    messageList.push(obj)
-  } else {
-    let childList = Object.values(obj)
-    for (let child of childList) {
-      recursiveAddMessage(child, messageList)
-    }
-  }
-}
-
 db.queryMessage = async function (q) {
   q.domain = q.domain || 'all'
   if (q.domain === 'all') q.domain = ''
   q.uid = q.uid || ''
-  let path = (q.uid === '') ? `/message/${q.domain}` : `/user/${q.uid}/domain/${q.domain}/`
-  let kvList = await db.queryByPath(path, q) // `/message/${q.domain}`
-  // console.log('kvList=%j', kvList)
-  // console.log('db.queryMessage: path=%s q=%j kvList.length=%d', path, q, kvList.length)
-  let messageList = []
-  for (let kv of kvList) {
-    // console.log('kv.value=%j typeof=%s', kv.value, typeof kv.value)
-    recursiveAddMessage(kv.value, messageList)
-    // process.exit(1)
-    /*
-    let message = kv.value.time ? kv.value : Object.values(kv.value)[0] // kv in format {key:xxx, value:message} or {key:xxx, value:{mid: message}} ?
-    messageList.push(message)
-    */
-  }
-  // console.log('q=', q)
-  if (q.sort === 'desc') { // firebase query orderBy 之後排序似乎沒有真正落實，只好自己重排一次。
-    messageList.sort((a, b) => a[q.orderBy] < b[q.orderBy])
-  } else {
-    messageList.sort((a, b) => a[q.orderBy] > b[q.orderBy])
-  }
-  // console.log('messageList.length=', messageList.length)
+  let table = (q.uid === '') ? `message/${q.domain}` : `user/${q.uid}/domain/${q.domain}`
+  let messageList = await db.queryRecord(table, q, (o) => o.content != null)
   return messageList
 }

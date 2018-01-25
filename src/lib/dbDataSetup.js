@@ -83,7 +83,7 @@ urspace.dictionaryText = JSON.stringify({
 })
 
 urspace.childDomainText = JSON.stringify({
-  all: ['skill', 'knowledge', 'people', 'object', 'article', 'image', 'video', 'music', 'book', 'place'],
+  all: ['skill', 'course', 'people', 'object', 'article', 'image', 'video', 'music', 'book', 'place'],
   skill: ['coding', 'maker', 'painting', 'music_play', 'carpenter', 'farming'],
   course: ['mathematics', 'physics', 'chemistry', 'biology', 'language', 'history', 'geography', 'society'],
   people: ['family', 'friends', 'followBy'],

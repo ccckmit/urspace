@@ -2,13 +2,11 @@ import Vue from 'vue'
 import service from '@/lib/service'
 import {ccckmit, urspace} from '@/lib/dbDataSetup'
 import someMessages from './someMessages.json'
-// import domainOp from '@/lib/domainOp'
 
 const db = service.db
 
 async function saveCheck(table, key, record) {
   expect.assertions(1)
-  // console.log('domainOp=', domainOp)
   db.setRecord(table, key, record)
   let obj = await db.getRecord(table, key)
   record.time = obj.time
@@ -27,8 +25,6 @@ describe('Firebase', () => {
   afterAll(() => { service.stop() })
   beforeAll(async () => {
     service.init('admin')
-    
-    // console.log('beforeAll:domainOp=', domainOp)
   })
   it('db.clear()', async () => {
     let result = await db.clear()
@@ -51,42 +47,32 @@ describe('Firebase', () => {
   it('addMessages(someMessages)', async () => {
     expect.assertions(1)
     let midList = await addMessages(someMessages)
-    console.log('midList=', midList)
+    // console.log('midList=', midList)
     expect(midList.length).toBe(someMessages.length)
   })
-  /*
-  it('db.queryByPath(/message/)', async () => {
-    expect.assertions(1)
-    const list = await db.queryByPath('/message/', {orderBy: 'time'})
-    console.log('queryByPath: list=', JSON.stringify(list, null, 2))
-    expect(list.length).toBe(7)
-  })
-  */
   it('db.queryRecord(message order by time desc)', async () => {
     expect.assertions(1)
     let q = { orderBy: 'time', limit: 7, sort: 'desc' }
     const list = await db.queryMessage(q)
-    console.log('query: list=', JSON.stringify(list, null, 2))
+    // console.log('query: list=', JSON.stringify(list, null, 2))
     expect(list.length).toBe(q.limit)
   })
   it('db.queryRecord(coding message order by time desc)', async () => {
     expect.assertions(1)
     let q = { domain:'coding', orderBy: 'time', limit: 5, sort: 'desc'}
     const list = await db.queryMessage(q)
-    // console.log('query: list=', JSON.stringify(list, null, 2))
-    expect(list.length).toBe(3)
+    expect(list.length).toBe(2)
   })
   it('db.queryRecord(ccckmit coding message order by time desc)', async () => {
     expect.assertions(1)
     let q = { uid: 'AuSf7PuZpKcrJBcp8nH3RKcuvTi1', domain:'coding', orderBy: 'time', limit: 5, sort: 'desc'}
     const list = await db.queryMessage(q)
-    // console.log('query: list=', JSON.stringify(list, null, 2))
-    expect(list.length).toBe(2)
+    expect(list.length).toBe(1)
   })
   it('get(/ccckmit/', async () => {
     expect.assertions(1)
     var obj = await db.getByPath('-L3aP5oJIwvxbnSX3wB5')
-    console.log('obj=',obj)
+    // console.log('obj=',obj)
     expect(obj).toBe(null)
   })
 })
