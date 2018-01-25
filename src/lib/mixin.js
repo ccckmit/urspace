@@ -20,6 +20,18 @@ const mixin = {
     mt (e) {
       return MT.mt(e, shared.language)
     },
+    toLink (domain, op, uid) {
+      op = op || 'new'
+      domain = domain || 'all'
+      uid = uid || ''
+      return `/sms/${domain}/${op}/${uid}`
+    },
+    routeParam (name) {
+      return this.$route.param[name]
+    },
+    go (k) {
+      this.$router.go(k)
+    },
     domainLink (domain) {
       // return '/sms/' + domain
       return '/sms/' + domain

@@ -47,7 +47,9 @@ db.getMessage = async function (msg) {
 db.queryMessage = async function (q) {
   q.domain = q.domain || 'all'
   if (q.domain === 'all') q.domain = ''
-  let kvList = await db.queryByPath(`/message/${q.domain}`, q)
+  q.uid = q.uid || ''
+  let path = (q.uid === '') ? `/message/${q.domain}` : `/user/${q.uid}/domain/${q.domain}/`
+  let kvList = await db.queryByPath(path, q) // `/message/${q.domain}`
   let messageList = []
   for (let kv of kvList) {
     let message = kv.value.time ? kv.value : Object.values(kv.value)[0] // kv in format {key:xxx, value:message} or {key:xxx, value:{mid: message}} ?

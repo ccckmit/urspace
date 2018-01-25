@@ -6,7 +6,7 @@
       <rightbar :domain="domain"/>
       <div>
         <div id="content" style="min-height: 100vh">
-          <main-content :page="page" :domain="domain" :op="op"/>
+          <main-content :page="page" :domain="domain" :op="op" :uid="uid"/>
           <div id="footer"></div>
         </div>
       </div>
@@ -22,7 +22,7 @@ import MainContent from './MainContent.vue'
 
 export default {
   name: 'mainPage',
-  props: ['page', 'domain', 'op'],
+  props: ['page', 'domain', 'op', 'uid'],
   components: {
     Headbar,
     Leftbar,
@@ -32,7 +32,7 @@ export default {
   watch: {
     '$route' (to, from) {
       // 对路由变化作出响应...
-      console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op)
+      console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op, 'uid=', this.uid)
     }
   },
   methods: {

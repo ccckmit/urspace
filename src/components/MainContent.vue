@@ -5,7 +5,7 @@
   </div>
   <div v-else>
     <setting v-if="page==='setting'"/>
-    <sms v-else :domain="domain" :op="op" />
+    <sms v-else :domain="domain" :op="op" :uid="uid"/>
   </div>
 </div>
 </template>
@@ -18,7 +18,7 @@ import mixin from '../lib/mixin'
 
 export default {
   name: 'mainContent',
-  props: ['page', 'domain', 'op'],
+  props: ['page', 'domain', 'op', 'uid'],
   mixins: [mixin],
   data () {
     return {

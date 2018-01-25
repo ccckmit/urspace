@@ -3,7 +3,10 @@
   <div>
     <div id="message" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
       <div v-if="shared.isLogin()" class="message">
-        <div><a href="#">{{shared.user.displayName}}</a></div>
+        <div>
+          <!-- <a href="#">{{shared.user.displayName}}</a> -->
+          <router-link :to="toLink(domain, op, shared.user.uid)">{{shared.user.displayName}}</router-link>
+        </div>
         <div class="messageContent">
           <textarea v-model="messageContent"></textarea>
         </div>
@@ -13,7 +16,10 @@
         </div>
       </div>
       <div v-for="message in messages" :key="message.id" class="message">
-        <div><a href="#">{{message.by}}</a><label class="right">{{timeToIso(message.time)}}</label></div>
+        <div>
+          <router-link :to="toLink('all', 'new', message.uid)">{{message.by}}</router-link>
+          <label class="right">{{timeToIso(message.time)}}</label>
+        </div>
         <div class="messageContent" v-html="text2html(message.content)"></div>
         <div>
           <button>{{mt('reply')}}</button>
@@ -47,7 +53,7 @@ var opMap = {
 export default {
   name: 'Sms',
   mixins: [mixin],
-  props: ['domain', 'op'],
+  props: ['domain', 'op', 'uid'],
   data () {
     return {
       messageContent: '',
@@ -55,6 +61,19 @@ export default {
       isEnd: false,
       busyLoadMore: false
     }
+  },
+  watch: {
+    $route () {
+      console.log('sms:route.params=', this.$route.params)
+      console.log('domain=%s op=%s uid=%s', this.domain, this.op, this.uid)
+      this.messages = []
+      this.isEnd = false
+      this.loadMore()
+    }
+  },
+  beforeRouteUpdate (to) { // route 時不會觸發 (因為是 component ?)
+    console.log('beforeRouteUpdate:to=', to)
+    this.message = []
   },
   methods: {
     postMessage () {
@@ -94,7 +113,7 @@ export default {
       setTimeout(() => {
         let start = (this.messages.length === 0 || sort === 'desc') ? null : this.messages[this.messages.length - 1].time + 1
         let end = (this.messages.length === 0 || sort !== 'desc') ? null : this.messages[this.messages.length - 1].time - 1
-        let q = { domain: this.domain, orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
+        let q = { uid: this.uid, domain: this.domain, orderBy: orderBy, start: start, end: end, limit: step, sort: sort }
         console.log('loadMore:this.domain=', this.domain)
         db.queryMessage(q).then(function (qMsgList) {
           for (let qMsg of qMsgList) {

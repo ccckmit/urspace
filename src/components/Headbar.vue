@@ -3,19 +3,14 @@
     <div class="dropdown" style="float:left">
       <button  @click="menuToggle('left')" class="dropbtn">&#9776;</button>
     </div>
-<!--
-    <div class="dropdown" style="float:left">
-      <router-link v-if="(domain||'all') != 'all'" :to="domainLink" class="captalize">{{mt(domain)}} bbb</router-link>
-    </div>
-
-    <div class="dropdown" style="float:left">
-      /
-      <router-link to="/sms/all">{{mt('all')}} aaa</router-link>
-    </div>
--->
     <div class="dropdown" style="float:left">
       <button class="dropbtn">
-        <router-link to="/sms/all">{{mt('UrSpace')}}</router-link>
+        <router-link :to="domainLink('all')" class="captalize"><i class="fa fa-home" aria-hidden="true"></i></router-link>
+      </button>
+    </div>
+    <div class="dropdown" style="float:left">
+      <button class="dropbtn">
+        <router-link :to="toLink(domain, op, urspace.uid)">{{mt('UrSpace')}}</router-link>
       </button>
       <div class="dropdown-content">
         <router-link to="/" class="captalize">{{mt('home')}}</router-link>
@@ -24,7 +19,7 @@
     </div>
     <div class="dropdown" style="float:left">
       <button class="dropbtn">
-        <router-link to="/user">{{mt(shared.user != null ? shared.user.displayName : 'Login')}}</router-link>
+        <router-link :to="toLink(domain, op, shared.user.uid)">{{mt(shared.user != null ? shared.user.displayName : 'Login')}}</router-link>
       </button>
       <div class="dropdown-content">
         <router-link to="/login">{{mt('login')}}</router-link>
@@ -75,6 +70,7 @@ export default {
   mixins: [mixin],
   data () {
     return {
+      urspace: { uid: 'yRK5q5iZ14V2OJRW47dotv9FjTA3' }
     }
   },
   mounted: function () {
@@ -89,9 +85,11 @@ export default {
     */
   },
   methods: {
+    /*
     toLink: function (domain, op) {
       return `/sms/${domain}/${op}`
     },
+    */
     menuToggle: function (menuName) {
       var sidenav = document.getElementById(menuName + 'nav')
       var sidebar = document.getElementById(menuName + 'bar')

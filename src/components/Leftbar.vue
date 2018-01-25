@@ -1,7 +1,9 @@
 <template>
   <div id="leftnav">
     <div id="leftbar">
-      <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="domainLink(sub)" class="captalize">{{mt(sub)}}</router-link>
+      <!-- <a :click="go(-1)">⮌</a> 會亂跳而錯誤 -->
+      <router-link :to="domainLink(domain)" class="captalize">{{mt(domain)}}</router-link>
+      <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="domainLink(sub)" class="captalize"> – {{mt(sub)}}</router-link>
     </div>
   </div>
 </template>
@@ -30,6 +32,7 @@ export default {
   created: function () {
   },
   methods: {
+
   }
 }
 </script>

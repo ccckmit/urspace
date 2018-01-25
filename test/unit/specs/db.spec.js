@@ -68,6 +68,13 @@ describe('Firebase', () => {
     // console.log('query: list=', JSON.stringify(list, null, 2))
     expect(list.length).toBe(3)
   })
+  it('db.queryRecord(ccckmit code message order by time desc)', async () => {
+    expect.assertions(1)
+    let q = { uid: 'AuSf7PuZpKcrJBcp8nH3RKcuvTi1', domain:'code', orderBy: 'time', limit: 5, sort: 'desc'}
+    const list = await db.queryMessage(q)
+    // console.log('query: list=', JSON.stringify(list, null, 2))
+    expect(list.length).toBe(2)
+  })
   it('get(/ccckmit/', async () => {
     expect.assertions(1)
     var obj = await db.getByPath('-L3aP5oJIwvxbnSX3wB5')
