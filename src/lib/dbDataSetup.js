@@ -62,10 +62,30 @@ urspace.dictionaryText = JSON.stringify({
   tw: {tw: '繁體中文'},
   cn: {tw: '簡體中文'},
   wait_for_load: {en: 'waiting for data loading...', tw: '載入新資料中，請等候 ...'},
-  end_of_data: {en: 'end of data, load complete!', tw: '資料全部載入完畢，已到結尾！'}
+  end_of_data: {en: 'end of data, load complete!', tw: '資料全部載入完畢，已到結尾！'},
+  skill: {tw: '技能'},
+  coding: {tw: '程式設計'},
+  maker: {tw: '創客自造'},
+  painting: {tw: '繪畫'},
+  music_play: {tw: '音樂演奏'},
+  carpenter: {tw: '木工'},
+  farming: {tw: '農業園藝'},
+  knowledge: {tw: '知識'},
+  mathematics: {tw: '數學'},
+  physics: {tw: '物理'},
+  chemistry: {tw: '化學'},
+  biology: {tw: '生物'},
+  language: {tw: '語言'},
+  history: {tw: '歷史'},
+  geography: {tw: '地理'},
+  society: {tw: '社會'},
+  course: {tw: '課程'}
 })
 
 urspace.childDomainText = JSON.stringify({
+  all: ['skill', 'knowledge', 'people', 'object', 'article', 'image', 'video', 'music', 'book', 'place'],
+  skill: ['coding', 'maker', 'painting', 'music_play', 'carpenter', 'farming'],
+  course: ['mathematics', 'physics', 'chemistry', 'biology', 'language', 'history', 'geography', 'society'],
   people: ['family', 'friends', 'followBy'],
   object: ['sale', 'buy'],
   article: ['news', 'rss'],

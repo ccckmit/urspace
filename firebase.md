@@ -11,7 +11,7 @@ orderByValue()  -- 根據 child 欄位值取出所有子節點排序
 orderByKey() -- 根據 key 取出所有子節點排序
 orderByPriority()  -- 根據 priority 取出所有子節點排序
 
-檢視： https://ccc-urspace.firebaseio.com/table.json?orderBy=%22time%22&print=pretty
+檢視： https://ccc-urspace.firebaseio.com/message.json?orderBy=%22time%22&print=pretty
 玩玩： https://dinosaur-facts.firebaseio.com/dinosaurs.json?orderBy=%22height%22&startAt=3&print=pretty
 參考： https://firebase.google.com/docs/database/rest/retrieve-data
 

@@ -82,6 +82,7 @@ export default {
       var record = {
         uid: user.uid,
         by: user.displayName,
+        domain: this.domain,
         content: self.messageContent
       }
       // var ref = db.addMessage(record)

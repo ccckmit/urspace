@@ -54,23 +54,31 @@ describe('Firebase', () => {
     console.log('midList=', midList)
     expect(midList.length).toBe(someMessages.length)
   })
+  /*
+  it('db.queryByPath(/message/)', async () => {
+    expect.assertions(1)
+    const list = await db.queryByPath('/message/', {orderBy: 'time'})
+    console.log('queryByPath: list=', JSON.stringify(list, null, 2))
+    expect(list.length).toBe(7)
+  })
+  */
   it('db.queryRecord(message order by time desc)', async () => {
     expect.assertions(1)
-    let q = { orderBy: 'time', limit: 5, sort: 'desc'}
+    let q = { orderBy: 'time', limit: 7, sort: 'desc' }
     const list = await db.queryMessage(q)
-    // console.log('query: list=', JSON.stringify(list, null, 2))
+    console.log('query: list=', JSON.stringify(list, null, 2))
     expect(list.length).toBe(q.limit)
   })
-  it('db.queryRecord(code message order by time desc)', async () => {
+  it('db.queryRecord(coding message order by time desc)', async () => {
     expect.assertions(1)
-    let q = { domain:'code', orderBy: 'time', limit: 5, sort: 'desc'}
+    let q = { domain:'coding', orderBy: 'time', limit: 5, sort: 'desc'}
     const list = await db.queryMessage(q)
     // console.log('query: list=', JSON.stringify(list, null, 2))
     expect(list.length).toBe(3)
   })
-  it('db.queryRecord(ccckmit code message order by time desc)', async () => {
+  it('db.queryRecord(ccckmit coding message order by time desc)', async () => {
     expect.assertions(1)
-    let q = { uid: 'AuSf7PuZpKcrJBcp8nH3RKcuvTi1', domain:'code', orderBy: 'time', limit: 5, sort: 'desc'}
+    let q = { uid: 'AuSf7PuZpKcrJBcp8nH3RKcuvTi1', domain:'coding', orderBy: 'time', limit: 5, sort: 'desc'}
     const list = await db.queryMessage(q)
     // console.log('query: list=', JSON.stringify(list, null, 2))
     expect(list.length).toBe(2)

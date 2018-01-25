@@ -64,13 +64,16 @@ db.setByPath = async function (path, value) {
 }
 
 db.queryByPath = async function (path, q) { // q = {table, orderBy, start, end, limit, desc=false }
-  var ref = fDb.ref(path).orderByChild(q.orderBy)
+  var ref = fDb.ref(path)
+  ref = (q.orderBy != null) ? ref.orderByChild(q.orderBy) : ref.orderByKey()
   ref = (q.start != null) ? ref.startAt(q.start) : ref
   ref = (q.end != null) ? ref.endAt(q.end) : ref
-  ref = (q.sort === 'desc') ? ref.limitToLast(q.limit) : ref.limitToFirst(q.limit)
+  let limit = q.limit || 99999
+  ref = (q.sort === 'desc') ? ref.limitToLast(limit) : ref.limitToFirst(limit)
   const snapshot = await ref.once('value')
   const kvList = []
   snapshot.forEach(function (childSnapshot) {
+    console.log('childSnapshot: key=%j val()=%j', childSnapshot.key, childSnapshot.val())
     kvList.push({key: childSnapshot.key, value: childSnapshot.val()})
   })
   if (q.sort === 'desc') kvList.reverse()
