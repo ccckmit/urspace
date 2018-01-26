@@ -5,12 +5,12 @@ import someMessages from './someMessages.json'
 
 const db = service.db
 
-async function saveCheck(table, key, record) {
+async function userSaveCheck(user) {
   expect.assertions(1)
-  db.setRecord(table, key, record)
-  let obj = await db.getRecord(table, key)
-  record.time = obj.time
-  return expect(obj).toEqual(record)
+  db.setUser(user)
+  let obj = await db.getUser(user.uid)
+  user.time = obj.time
+  return expect(obj).toEqual(user)
 }
 
 async function addMessages(messages) {
@@ -31,18 +31,10 @@ describe('Firebase', () => {
     expect(result).toBe(undefined)
   })
   it('db.setup(ccckmit)', async () => {
-    await saveCheck('user', ccckmit.uid, ccckmit)
-  })
-  it('db.setup(ccckmit):link', async () => {
-    let link = {linkto: 'user:' + ccckmit.uid}
-    await saveCheck('link', 'ccckmit', link)
+    await userSaveCheck(ccckmit)
   })
   it('db.setup(urspace)', async () => {
-    await saveCheck('user', urspace.uid, urspace)
-  })
-  it('db.setup(urspace):link', async () => {
-    let link = {linkto: 'user:' + urspace.uid}
-    await saveCheck('link', 'urspace', link)
+    await userSaveCheck(urspace)
   })
   it('addMessages(someMessages)', async () => {
     expect.assertions(1)
@@ -76,3 +68,16 @@ describe('Firebase', () => {
     expect(obj).toBe(null)
   })
 })
+
+/*
+it('db.setup(urspace):link', async () => {
+  let link = {linkto: 'user:' + urspace.uid}
+  await saveCheck('link', 'urspace', link)
+})
+*/
+/*
+it('db.setup(ccckmit):link', async () => {
+  let link = {linkto: 'user:' + ccckmit.uid}
+  await saveCheck('link', 'ccckmit', link)
+})
+*/
