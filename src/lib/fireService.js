@@ -7,20 +7,14 @@ export function init (mode) {
     var fadminModule = 'firebase-admin'
     var admin = require(`${fadminModule}`) // 由於直接 require 會有 eslint 報警告，所以改用間接引用。
     // 上述寫法參考：https://github.com/webpack/webpack/issues/196
-    var serviceAccount = require('../../account/firebaseAdminKey.json')
+    var serviceAccount = require('../../account/firebaseAdminAccount.json')
     fApp = admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
       databaseURL: 'https://ccc-urspace.firebaseio.com'
     })
   } else {
-    fApp = firebase.initializeApp({
-      apiKey: 'AIzaSyCmc44S50DGj-f9LbagNPLgnVHHaphIZhI',
-      authDomain: 'ccc-urspace.firebaseapp.com',
-      databaseURL: 'https://ccc-urspace.firebaseio.com',
-      projectId: 'ccc-urspace',
-      storageBucket: '',
-      messagingSenderId: '1023578722292'
-    })
+    var clientAccount = require('../../account/firebaseClientAccount.json')
+    fApp = firebase.initializeApp(clientAccount)
   }
   fDb = fApp.database()
 }

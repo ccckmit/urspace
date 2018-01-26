@@ -105,13 +105,45 @@ export const ccckmit = {
   text: `# 陳鍾誠`
 }
 
+ccckmit.dictionaryText = JSON.stringify({
+  web_programming: {tw: '網頁設計'},
+  computer_organization: {tw: '計算機結構'},
+  window_programming: {tw: '視窗程式設計'},
+  system_programming: {tw: '系統程式設計'},
+  artificial_intelligence: {tw: '人工智慧'},
+  statistics: {tw: '統計學'},
+  c_progrmaming: {tw: 'C 語言程式設計'},
+  kinmen: {tw: '金門'},
+  taipei: {tw: '台北'}
+})
+
 ccckmit.childDomainText = JSON.stringify({
+  all: ['course', 'book', 'place'],
+  course: ['web_programming', 'computer_organization', 'window_programming', 'system_programming', 'artificial_intelligence'],
+  book: ['statistics', 'c_progrmaming'],
+  place: ['kinmen', 'taipei']
+})
+
+function getChildDomain (user) {
+  return JSON.parse(user.childDomainText)
+}
+
+function getDictionary (user) {
+  return JSON.parse(user.dictionaryText)
+}
+
+export function userSetup (user) {
+  user.childDomain = getChildDomain(user)
+  user.dictionary = getDictionary(user)
+  return user
+}
+/*
   course: ['網頁設計', '計算機結構', '視窗程式', '系統程式', '人工智慧'],
   book: ['機率統計', '高等 C 語言'],
   place: ['金門', '金門大學']
-})
+*/
 
-export default { urspace, ccckmit }
+export default { urspace, ccckmit, userSetup }
 
 /*
 urspace.dictionary = [

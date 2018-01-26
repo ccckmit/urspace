@@ -2,7 +2,7 @@ import shared from './shared'
 import MT from './mt'
 
 const mixin = {
-  props: ['domain', 'op'],
+  props: ['page', 'domain', 'op', 'uid'],
   data () {
     return {
       shared: shared

@@ -1,25 +1,31 @@
 <template>
   <div id="headbar">
     <div class="dropdown" style="float:left">
-      <button  @click="menuToggle('left')" class="dropbtn">&#9776;</button>
+      <button @click="menuToggle('left')" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i><!--&#9776;--></button>
     </div>
+    <!--
     <div class="dropdown" style="float:left">
       <button class="dropbtn">
         <router-link :to="domainLink('all')" class="captalize"><i class="fa fa-home" aria-hidden="true"></i></router-link>
       </button>
     </div>
+    -->
     <div class="dropdown" style="float:left">
       <button class="dropbtn">
-        <router-link :to="toLink(domain, op, urspace.uid)">{{mt('UrSpace')}}</router-link>
+        <!-- <router-link :to="toLink(domain, op, urspace.uid)">{{mt('UrSpace')}}</router-link> -->
+        <router-link :to="toLink('all', op, '')" class="captalize">{{mt('UrSpace')}}</router-link>
       </button>
       <div class="dropdown-content">
         <router-link to="/" class="captalize">{{mt('home')}}</router-link>
         <router-link to="/help" class="captalize">{{mt('help')}}</router-link>
       </div>
     </div>
-    <div class="dropdown" style="float:left">
+    <div class="dropdown" style="width:3em">
+      <button @click="menuToggle('right')" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i><!--&#9776;--></button>
+    </div>
+    <div class="dropdown">
       <button class="dropbtn">
-        <router-link :to="toLink(domain, op, shared.user.uid)">{{mt(shared.user != null ? shared.user.displayName : 'Login')}}</router-link>
+        <router-link :to="toLink(domain, op, shared.user != null ? shared.user.uid : '')">{{mt(shared.user != null ? shared.user.displayName : 'Login')}}</router-link> <!--  -->
       </button>
       <div class="dropdown-content">
         <router-link to="/login">{{mt('login')}}</router-link>
@@ -27,9 +33,6 @@
         <router-link to="/signup">{{mt('signup')}}</router-link>
         <router-link to="/setting">{{mt('setting')}}</router-link>
       </div>
-    </div>
-    <div class="dropdown" style="width:2em">
-      <a id="keepToggle"  @click="menuToggle('right')">&#9776;</a>
     </div>
     <div class="dropdown">
       <button class="dropbtn">{{mt(shared.language)}}</button>
@@ -58,6 +61,10 @@
         <router-link :to="toLink(domain, 'random')" class="captalize">{{mt('random')}}</router-link>
       </div>
     </div>
+    <div class="dropdown" style="float:right">
+      <input type="text" :value="q"/>
+      <button class="success">搜尋</button>
+    </div>
   </div>
 </template>
 
@@ -66,10 +73,11 @@ import mixin from '../lib/mixin'
 
 export default {
   name: 'headbar',
-  props: [ 'domain', 'op' ],
+  props: [ 'you', 'me' ],
   mixins: [mixin],
   data () {
     return {
+      q: '',
       urspace: { uid: 'yRK5q5iZ14V2OJRW47dotv9FjTA3' }
     }
   },

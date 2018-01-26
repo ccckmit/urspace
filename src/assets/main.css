@@ -21,10 +21,15 @@ h5 { font-size:100%; font-weight:bold; }
 h6 { font-size:100%; font-weight:bold; }
 
 hr { border-top: 1px solid #999999; border-bottom:0px; }
+
 .center {
   text-align :center; 
   margin-left:auto;
   margin-right:auto; 
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .right {
@@ -120,10 +125,10 @@ hr { border-top: 1px solid #999999; border-bottom:0px; }
   /* margin-top:30px; */
   width: 200px;
   height: 100vh;
-  top: 30px;
+  top: 40px;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 20px;
+  padding: 10px 5px;
   color:white;
   background-color:#336699;
   white-space:nowrap;
@@ -150,7 +155,7 @@ hr { border-top: 1px solid #999999; border-bottom:0px; }
 }
 
 #leftnav a , #rightnav a {
-  padding: 8px 16px;
+  padding: 4px 4px;
   text-decoration: none;
   font-size: large;
   display: block;
@@ -216,6 +221,8 @@ hr { border-top: 1px solid #999999; border-bottom:0px; }
 .default {background-color: #e7e7e7; color: black;} /* Gray */ 
 .default:hover {background: #ddd;}
 
+/* 柔和舒服的顏色 https://flatuicolors.com/ */
+.soft_yellow { color:#ffeaa7 }
 
 /* ============= headbar ===============*/
 #headbar {

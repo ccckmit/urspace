@@ -2,7 +2,7 @@
   <div id="leftnav">
     <div id="leftbar">
       <router-link :to="domainLink(domain)" class="captalize">{{mt(domain)}}</router-link>
-      <router-link v-for="(sub, index) in subDomain[domain || 'all']" :key="index" :to="domainLink(sub)" class="captalize"> – {{mt(sub)}}</router-link>
+      <router-link v-for="(child, index) in childDomain[domain || 'all']" :key="index" :to="domainLink(child)" class="captalize"> – {{mt(child)}}</router-link>
     </div>
   </div>
 </template>
@@ -12,21 +12,11 @@ import {urspace} from '../lib/dbDataSetup'
 
 export default {
   name: 'leftbar',
-  props: [ 'domain' ],
   mixins: [mixin],
   data () {
     return {
-      subDomain: JSON.parse(urspace.childDomainText)
+      childDomain: JSON.parse(urspace.childDomainText)
     }
-  },
-  created: function () {
-  },
-  methods: {
-
   }
 }
 </script>
-
-<style scoped>
-
-</style>

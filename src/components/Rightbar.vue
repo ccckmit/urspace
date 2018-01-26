@@ -1,37 +1,31 @@
 <template>
   <div id="rightnav">
-    <div id="rightbar" class="center">
-      <input type="text" :value="query"/>
-      <br/><br/>
-      <div class="wide center">
-        <button id="search" class="success">類別查詢</button>
-        <button id="search" class="success">全文檢索</button>
-      </div>
+    <div id="rightbar">
+      <a @click="setMyDomain(myDomain)" class="captalize">{{mt(myDomain)}}</a>
+      <a v-for="(child, index) in childDomain[myDomain]" :key="index" @click="setMyDomain(child)" class="captalize"> – {{mt(child)}}</a>
     </div>
-<!--    <router-link to="sub" class="captalize"></router-link> -->
-
   </div>
 </template>
 <script>
 import mixin from '../lib/mixin'
+import {ccckmit} from '../lib/dbDataSetup'
 
 export default {
   name: 'rightbar',
-  // props: [ 'domain' ],
   mixins: [mixin],
   data () {
     return {
-      query: ''
+      myDomain: 'all',
+      childDomain: JSON.parse(ccckmit.childDomainText)
     }
   },
-  created: function () {
-  },
   methods: {
+    setMyDomain: function (domain) {
+      this.myDomain = domain
+    }
   }
 }
 </script>
 
 <style scoped>
-input { height: 1.6em; text-align: center; }
-button { }
 </style>

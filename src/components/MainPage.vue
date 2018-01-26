@@ -1,9 +1,11 @@
 <template>
   <div>
-    <headbar :domain="domain" :op="op"/>
+    <headbar :domain="domain" :op="op" :you="you" :me="me"/>
     <div>
-      <leftbar :domain="domain"/>
-      <rightbar :domain="domain"/>
+      <!-- <leftbar :domain="domain"/> -->
+      <side-menu :who="you" :side="'left'"/>
+      <!-- <rightbar :domain="domain"/> -->
+      <side-menu :who="me" :side="'right'"/>
       <div>
         <div id="content" style="min-height: 100vh">
           <main-content :page="page" :domain="domain" :op="op" :uid="uid"/>
@@ -18,22 +20,38 @@
 import Headbar from './Headbar.vue'
 import Leftbar from './Leftbar.vue'
 import Rightbar from './Rightbar.vue'
+import SideMenu from './SideMenu.vue'
 import MainContent from './MainContent.vue'
+import mixin from '../lib/mixin'
+import { urspace, ccckmit, userSetup } from '../lib/dbDataSetup'
+
+userSetup(urspace)
+userSetup(ccckmit)
 
 export default {
   name: 'mainPage',
-  props: ['page', 'domain', 'op', 'uid'],
+  mixins: [mixin],
+  // props: ['page', 'domain', 'op', 'uid'],
   components: {
     Headbar,
     Leftbar,
     Rightbar,
+    SideMenu,
     MainContent
+  },
+  data () {
+    return {
+      you: urspace,
+      me: ccckmit
+    }
   },
   watch: {
     '$route' (to, from) {
       // 对路由变化作出响应...
       console.log('page=', this.page, 'domain=', this.domain, 'op=', this.op, 'uid=', this.uid)
     }
+  },
+  created: function () {
   },
   methods: {
   }
